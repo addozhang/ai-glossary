@@ -1,0 +1,14 @@
+title: AI 黑话词典
+description: LLM 时代的术语速查表
+
+# 只发布站点运行所需的东西。
+# 内容源、构建脚本、许可与说明文件留在仓库里，但不出现在站点上。
+exclude:
+  - content
+  - scripts
+  - data/taxonomy.json
+  - node_modules
+  - README.md
+  - LICENSE
+  - LICENSE-CODE
+  - package.json

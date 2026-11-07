@@ -156,7 +156,7 @@ npm run serve        # 打开 http://localhost:8080
 - **Source**: Deploy from a branch
 - **Branch**: `main` / `/ (root)`
 
-不需要 Actions 构建，不需要 Jekyll——仓库里有 `.nojekyll`，所有文件（包括 `content/glossary.md` 源文件）都会原样发布，可以直接在线查看内容源。
+不需要 Actions 构建。仓库里有 `_config.yml` 做白名单式排除：只发布 `index.html`、`assets/`、`data/glossary.js`，内容源目录、脚本、许可文件都不会出现在站点上（例如 `/content/glossary.md` 是 404）。
 
 仓库所在账号的用户站点绑定了 `atbug.com`，因此项目页的规范地址是 `https://atbug.com/ai-glossary/`；`addozhang.github.io/ai-glossary/` 会重定向过去。
 
