@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI 黑话词典 — LLM 时代的术语速查表</title>
+<meta name="description" content="两百余条 AI / LLM 术语速查：从 Transformer 到 Agent，从幻觉到 Vibe Coding。支持全文检索、12 个分类与横向标签筛选。">
+<meta name="author" content="张晓辉 (Addo)">
+<meta name="keywords" content="AI 术语, LLM 黑话, 大模型词典, RAG, Agent, MCP, 幻觉, glossary">
+<meta property="og:type" content="website">
+<meta property="og:title" content="AI 黑话词典 — LLM 时代的术语速查表">
+<meta property="og:description" content="两百余条 AI / LLM 术语速查，支持全文检索与分类标签筛选。">
+<meta property="og:url" content="https://addozhang.github.io/ai-glossary/">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/style.css">
+<script>
+  (function () {
+    var q = new URLSearchParams(location.search).get('theme');
+    var forced = (q === 'light' || q === 'dark') ? q : null;
+    var s = null;
+    try { s = localStorage.getItem('ag-theme'); } catch (e) {}
+    var d = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+    document.documentElement.dataset.theme = forced || s || (d ? 'dark' : 'light');
+  })();
+</script>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="wrap topbar-inner">
+    <div class="brand">
+      <h1>AI 黑话词典</h1>
+      <span class="sub">LLM 时代的术语速查表</span>
+    </div>
+    <nav class="topbar-actions" aria-label="站内导航">
+      <a class="icon-btn" href="#dict">词典</a>
+      <a class="icon-btn" href="#confuse">辨析</a>
+      <a class="icon-btn" href="#refs">参考</a>
+      <button class="icon-btn" id="theme-btn" type="button" aria-label="切换深浅色">◐ <span>主题</span></button>
+      <a class="icon-btn" href="https://github.com/addozhang/ai-glossary" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
+    </nav>
+  </div>
+</header>
+
+<section class="wrap hero">
+  <h2>把黑话翻回人话</h2>
+  <p>每个行业都会长出自己的黑话。AI 这一轮的特殊之处在于：它先由论文造词、再由营销放大、最后被社媒压缩成标签。同一个东西有三个名字，不同东西共用一个名字——这份词典按十二条脉络把它们摊开。</p>
+  <div class="stat-row">
+    <div class="stat"><b id="stat-terms">—</b><span>词条</span></div>
+    <div class="stat"><b id="stat-cats">—</b><span>分类</span></div>
+    <div class="stat"><b id="stat-tags">—</b><span>标签</span></div>
+    <div class="stat"><b id="stat-confuse">—</b><span>组易混辨析</span></div>
+  </div>
+</section>
+
+<div class="searchbar" id="searchbar">
+  <div class="wrap">
+    <div class="search-inner">
+      <svg class="search-icon" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+      <label class="sr-only" for="q">搜索术语</label>
+      <input id="q" type="search" autocomplete="off" spellcheck="false" placeholder="搜索术语、英文全称、中文名或定义中的任意词…">
+      <button id="clear-q" type="button" aria-label="清空搜索">×</button>
+      <div class="kbd-hint"><kbd id="kbd-mod">⌘</kbd><kbd>K</kbd></div>
+    </div>
+  </div>
+</div>
+
+<main class="wrap layout" id="dict">
+  <aside class="sidebar" aria-label="筛选">
+    <div class="filter-head">
+      <span class="filter-title">分类</span>
+      <button class="reset-btn" id="reset-btn" type="button">清除筛选</button>
+    </div>
+    <div class="cat-list" id="cat-list"></div>
+    <div class="filter-title" style="margin-bottom:10px">标签</div>
+    <div class="tag-list" id="tag-list"></div>
+    <p class="tag-note">标签是跨分类的横向维度，多选时取交集。分类与标签均为受控词表。</p>
+  </aside>
+
+  <div class="content" id="content">
+    <div class="lead" id="lead"></div>
+    <div class="resultbar">
+      <span class="result-count" id="result-count"></span>
+      <div class="active-filters" id="active-filters"></div>
+      <div class="sort-toggle" id="sort-toggle">
+        <button type="button" data-sort="cat" class="active">按分类</button>
+        <button type="button" data-sort="az">按字母</button>
+      </div>
+    </div>
+    <div id="results"></div>
+  </div>
+</main>
+
+<div class="wrap">
+  <section class="section" id="confuse">
+    <h2>最容易混淆的十组</h2>
+    <p class="section-desc">这些区别比单词定义更容易在实际决策里造成误判。</p>
+    <div class="confuse-grid" id="confuse-grid"></div>
+  </section>
+
+  <section class="section" id="refs">
+    <h2>同类开源项目与权威来源</h2>
+    <p class="section-desc">只列链接与一句评价，不复制任何未授权内容。</p>
+    <div class="link-groups" id="link-groups"></div>
+  </section>
+
+  <section class="section" id="about">
+    <h2>关于与更新</h2>
+    <p class="section-desc">内容、协议与维护方式。</p>
+    <div class="about-box">
+      <p><strong>内容</strong>：全部词条由作者整理并原创撰写，源自 Obsidian 笔记库中的《AI 黑话词典》。参考项目仅提供链接，未复制其正文——特别是未附带 LICENSE 的仓库，法律上默认保留所有权利。</p>
+      <p><strong>分类与标签</strong>：12 个分类对应知识层级，8 个标签是跨分类的横向维度（核心 / 易混淆 / 工程 / 成本 / 新词 / 营销 / 有争议 / 安全）。两者均为受控词表，由 CI 校验，不允许随意新增标签，避免标签泛滥。</p>
+      <p><strong>更新</strong>：唯一数据源是 Markdown 笔记；<code>node scripts/sync.mjs</code> 重新生成词条数据，push 后 GitHub Pages 自动生效。手工标签写在 <code>data/tag-overrides.json</code>，同步时保留。</p>
+      <p><strong>隐私</strong>：纯静态、零依赖、无 CDN、无 Cookie、无追踪脚本，可离线打开。主题偏好仅存于本机 localStorage。</p>
+      <p><strong>协议</strong>：正文采用 <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener noreferrer">CC BY 4.0</a>，转载请署名。站点代码采用 MIT。</p>
+    </div>
+  </section>
+</div>
+
+<footer>
+  <div class="wrap foot-inner">
+    <span>AI 黑话词典 · 张晓辉 (Addo) · <a href="https://atbug.com" target="_blank" rel="noopener noreferrer">atbug.com</a></span>
+    <span id="foot-updated"></span>
+  </div>
+</footer>
+
+<div id="toast" role="status" aria-live="polite"></div>
+
+<script src="data/glossary.js"></script>
+<script src="assets/app.js"></script>
+</body>
+</html>

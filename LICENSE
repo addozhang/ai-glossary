@@ -1,0 +1,29 @@
+Attribution 4.0 International (CC BY 4.0)
+==========================================
+
+本仓库中的**内容部分**（词条、定义、辨析文本、分类与标签体系说明，
+即 data/glossary.js 中的文本数据以及 README.md 中的说明文字）
+采用知识共享 署名 4.0 国际许可协议。
+
+Copyright (c) 2026 张晓辉 (Addo) — https://atbug.com
+
+你可以：
+  - 共享：以任何媒介或格式复制、分发本内容
+  - 改编：重混、转换、基于本内容创作，即使用于商业目的
+
+只要你遵守以下条款：
+  - 署名：必须给出适当署名（「张晓辉 (Addo) / atbug.com」）、
+    提供本协议链接，并说明是否作出了修改。
+  - 没有其他限制：不得附加法律条款或技术措施，限制他人做
+    本协议允许的任何行为。
+
+不提供任何担保。
+
+完整法律文本：https://creativecommons.org/licenses/by/4.0/legalcode
+简体中文摘要：https://creativecommons.org/licenses/by/4.0/deed.zh-hans
+
+说明：
+  - 站点代码（index.html、assets/、scripts/）另见 LICENSE-CODE（MIT）。
+  - 本仓库「参考资源」中列出的第三方项目，仅提供链接与一句评价，
+    未复制其正文。各项目版权归其各自作者所有，遵循各自许可条款；
+    未附带许可文件的项目默认保留所有权利，本站不引用其内容文本。
