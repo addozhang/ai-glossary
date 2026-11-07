@@ -1,5 +1,6 @@
 /* 自动生成，请勿直接编辑。
- * 内容源：content/glossary.md
+ * 词条源：content/terms/<分类>/<id>.md
+ * 站点文本：content/glossary.md
  * 词表：data/taxonomy.json
  * 生成命令：npm run sync
  */
@@ -164,6 +165,7 @@ const GLOSSARY = {
         "core",
         "debate"
       ],
+      "order": 10,
       "def": "参数规模大到能涌现出泛化能力的语言模型。规模没有硬门槛，习惯上 10B 以上叫大。"
     },
     {
@@ -173,6 +175,7 @@ const GLOSSARY = {
       "zh": "基座模型",
       "cat": "architecture",
       "tags": [],
+      "order": 20,
       "def": "未经特定任务微调、可作为各类下游应用起点的通用模型。强调\"可被派生\"，不是强调\"大\"。"
     },
     {
@@ -185,6 +188,7 @@ const GLOSSARY = {
         "hype",
         "pitfall"
       ],
+      "order": 30,
       "def": "当前能力最强的那一批，通常只有少数几家能训练。是个相对概念，每年换人。"
     },
     {
@@ -196,6 +200,7 @@ const GLOSSARY = {
       "tags": [
         "core"
       ],
+      "order": 40,
       "def": "2017 年《Attention Is All You Need》提出的架构，用自注意力替代循环结构，是当下几乎所有大模型的底座。"
     },
     {
@@ -207,6 +212,7 @@ const GLOSSARY = {
       "tags": [
         "core"
       ],
+      "order": 50,
       "def": "让每个 token 根据相关性从其他 token 聚合信息的机制。**Self-Attention** 是自己内部互看，**Cross-Attention** 是跨序列（如编码器到解码器）看。"
     },
     {
@@ -216,6 +222,7 @@ const GLOSSARY = {
       "zh": "多头注意力",
       "cat": "architecture",
       "tags": [],
+      "order": 60,
       "def": "并行跑多组注意力，各组学不同的关注模式。"
     },
     {
@@ -228,6 +235,7 @@ const GLOSSARY = {
         "core",
         "cost"
       ],
+      "order": 70,
       "def": "模型处理的最小单位，介于字和词之间。中文一个 token 约对应 1-2 个汉字，英文约 0.75 个单词。计费、上下文长度都按它算。"
     },
     {
@@ -237,6 +245,7 @@ const GLOSSARY = {
       "zh": "分词",
       "cat": "architecture",
       "tags": [],
+      "order": 80,
       "def": "把文本切成 token 的过程。分词器（tokenizer）是模型自带的，换模型就换分词，**token 数会变，账单也会变**。"
     },
     {
@@ -248,6 +257,7 @@ const GLOSSARY = {
       "tags": [
         "core"
       ],
+      "order": 90,
       "def": "把文本映射成高维向量，语义相近的向量距离近。检索、聚类、去重全靠它。"
     },
     {
@@ -259,6 +269,7 @@ const GLOSSARY = {
       "tags": [
         "core"
       ],
+      "order": 100,
       "def": "一次请求里模型能\"看见\"的最大 token 数（输入+输出）。也叫 context length。"
     },
     {
@@ -270,6 +281,7 @@ const GLOSSARY = {
       "tags": [
         "core"
       ],
+      "order": 110,
       "def": "模型里可学习的数值。**7B / 70B / 405B** 指十亿级参数量。"
     },
     {
@@ -279,6 +291,7 @@ const GLOSSARY = {
       "zh": "稠密模型",
       "cat": "architecture",
       "tags": [],
+      "order": 120,
       "def": "每次前向都激活全部参数。与 MoE 相对。"
     },
     {
@@ -292,6 +305,7 @@ const GLOSSARY = {
         "cost",
         "pitfall"
       ],
+      "order": 130,
       "def": "把 FFN 拆成多个\"专家\"，每个 token 只路由到其中几个。**总参数**和**激活参数**是两回事：DeepSeek-V3 是 671B 总参 / 37B 激活，成本按激活算，显存按总参算。"
     },
     {
@@ -301,6 +315,7 @@ const GLOSSARY = {
       "zh": "路由器",
       "cat": "architecture",
       "tags": [],
+      "order": 140,
       "def": "MoE 里决定 token 去哪几个专家的那个小网络。路由不均会导致专家饿死或过载。"
     },
     {
@@ -310,6 +325,7 @@ const GLOSSARY = {
       "zh": "仅解码器",
       "cat": "architecture",
       "tags": [],
+      "order": 150,
       "def": "只有解码器堆叠、自回归生成的架构。GPT 系、Llama 系、Qwen 系都是，当下主流。"
     },
     {
@@ -319,6 +335,7 @@ const GLOSSARY = {
       "zh": "",
       "cat": "architecture",
       "tags": [],
+      "order": 160,
       "def": "编码器读全输入、解码器再生成。T5、原始 Transformer 是这类，翻译类任务上仍常见。"
     },
     {
@@ -328,6 +345,7 @@ const GLOSSARY = {
       "zh": "自回归",
       "cat": "architecture",
       "tags": [],
+      "order": 170,
       "def": "一个 token 一个 token 往后接。所有主流 LLM 的生成方式。"
     },
     {
@@ -340,6 +358,7 @@ const GLOSSARY = {
         "core",
         "cost"
       ],
+      "order": 180,
       "def": "缓存已算过的 Key/Value，避免重复计算。它是长上下文推理显存占用的主要来源。"
     },
     {
@@ -349,6 +368,7 @@ const GLOSSARY = {
       "zh": "分组/多查询注意力",
       "cat": "architecture",
       "tags": [],
+      "order": 190,
       "def": "让多个 Query 头共享一组 KV 头，大幅压缩 KV Cache。Llama 2 之后基本标配。"
     },
     {
@@ -358,6 +378,7 @@ const GLOSSARY = {
       "zh": "旋转位置编码",
       "cat": "architecture",
       "tags": [],
+      "order": 200,
       "def": "用旋转矩阵编码位置信息，便于外推到更长上下文。上下文扩展技术（YaRN、NTK）多在它上面做文章。"
     },
     {
@@ -369,6 +390,7 @@ const GLOSSARY = {
       "tags": [
         "cost"
       ],
+      "order": 210,
       "def": "通过分块和重计算降低显存访问的注意力实现。是\"算法让硬件跑得更快\"的经典案例，已迭代到 v3/v4。"
     },
     {
@@ -378,6 +400,7 @@ const GLOSSARY = {
       "zh": "状态空间模型",
       "cat": "architecture",
       "tags": [],
+      "order": 220,
       "def": "用线性递推替代注意力的序列建模路线，Mamba 是其代表。理论优势是长序列下计算线性增长。"
     },
     {
@@ -389,6 +412,7 @@ const GLOSSARY = {
       "tags": [
         "cost"
       ],
+      "order": 230,
       "def": "注意力层与线性/SSM 层交替堆叠，兼顾效果与长上下文成本。"
     },
     {
@@ -401,6 +425,7 @@ const GLOSSARY = {
         "core",
         "cost"
       ],
+      "order": 10,
       "def": "在海量无标注语料上做下一个 token 预测，得到基座模型。占全部算力的大头。"
     },
     {
@@ -414,6 +439,7 @@ const GLOSSARY = {
         "cost",
         "debate"
       ],
+      "order": 20,
       "def": "损失随参数量、数据量、算力呈幂律下降的经验规律。2020 年 Kaplan 版本 vs 2022 年 Chinchilla 版本的差别在于\"参数和数据该怎么分配\"。"
     },
     {
@@ -425,6 +451,7 @@ const GLOSSARY = {
       "tags": [
         "cost"
       ],
+      "order": 30,
       "def": "给定算力预算，参数与训练 token 应按约 1:20 配比。催生了\"小模型喂更多数据\"的路线。"
     },
     {
@@ -434,6 +461,7 @@ const GLOSSARY = {
       "zh": "数据墙",
       "cat": "training",
       "tags": [],
+      "order": 40,
       "def": "高质量公开文本接近耗尽，继续扩规模缺乏燃料。是 2024 年后\"合成数据\"热的直接原因。"
     },
     {
@@ -445,6 +473,7 @@ const GLOSSARY = {
       "tags": [
         "core"
       ],
+      "order": 50,
       "def": "用\"指令-回答\"对训练模型学会听话。是 RLHF 之前的必经步骤。"
     },
     {
@@ -454,6 +483,7 @@ const GLOSSARY = {
       "zh": "指令微调",
       "cat": "training",
       "tags": [],
+      "order": 60,
       "def": "SFT 的一种，专指让模型遵循指令格式。"
     },
     {
@@ -465,6 +495,7 @@ const GLOSSARY = {
       "tags": [
         "core"
       ],
+      "order": 70,
       "def": "用人类偏好训练奖励模型，再用强化学习优化策略。ChatGPT 的关键配方。"
     },
     {
@@ -478,6 +509,7 @@ const GLOSSARY = {
         "debate",
         "pitfall"
       ],
+      "order": 80,
       "def": "用 AI 替代人类标注偏好，降本版本。争议在于\"用 AI 教 AI\"会不会放大偏差。"
     },
     {
@@ -487,6 +519,7 @@ const GLOSSARY = {
       "zh": "奖励模型",
       "cat": "training",
       "tags": [],
+      "order": 90,
       "def": "学习\"人类更喜欢哪个回答\"的打分器，是 RLHF 的中介。"
     },
     {
@@ -498,6 +531,7 @@ const GLOSSARY = {
       "tags": [
         "cost"
       ],
+      "order": 100,
       "def": "RLHF 里常用的强化学习算法。工程复杂，需要四个模型同时在显存里。"
     },
     {
@@ -509,6 +543,7 @@ const GLOSSARY = {
       "tags": [
         "core"
       ],
+      "order": 110,
       "def": "跳过奖励模型，直接用偏好对优化策略。简单稳定，已成主流替代方案。"
     },
     {
@@ -520,6 +555,7 @@ const GLOSSARY = {
       "tags": [
         "new"
       ],
+      "order": 120,
       "def": "用组内相对得分替代价值网络，省掉 critic 模型。DeepSeek-R1 用它做纯 RL 推理训练，是 2025 年的关键配方。"
     },
     {
@@ -529,6 +565,7 @@ const GLOSSARY = {
       "zh": "",
       "cat": "training",
       "tags": [],
+      "order": 130,
       "def": "偏好优化的变体。KTO 只需\"好/坏\"二元标注，ORPO 把 SFT 和偏好优化合并成一步。"
     },
     {
@@ -538,6 +575,7 @@ const GLOSSARY = {
       "zh": "奖励黑客",
       "cat": "training",
       "tags": [],
+      "order": 140,
       "def": "模型找到奖励模型的漏洞、刷高分数但答得更差。对齐里的经典失败模式。"
     },
     {
@@ -549,6 +587,7 @@ const GLOSSARY = {
       "tags": [
         "core"
       ],
+      "order": 150,
       "def": "让模型行为符合人类意图与价值观的总称。包含有用性、诚实性、无害性三个维度（**HHH**）。"
     },
     {
@@ -558,6 +597,7 @@ const GLOSSARY = {
       "zh": "宪法 AI",
       "cat": "training",
       "tags": [],
+      "order": 160,
       "def": "Anthropic 提出，用一套明文原则让模型自我批评和修正，减少人工标注依赖。"
     },
     {
@@ -569,6 +609,7 @@ const GLOSSARY = {
       "tags": [
         "pitfall"
       ],
+      "order": 170,
       "def": "用特殊措辞绕过安全限制。与提示注入的区别见「安全与伦理」一节。"
     },
     {
@@ -578,6 +619,7 @@ const GLOSSARY = {
       "zh": "红队测试",
       "cat": "training",
       "tags": [],
+      "order": 180,
       "def": "组织人主动攻击模型找漏洞，是发布前的标准动作。"
     },
     {
@@ -589,6 +631,7 @@ const GLOSSARY = {
       "tags": [
         "core"
       ],
+      "order": 190,
       "def": "在预训练模型上继续训练以适配特定任务或风格。**全参微调**改所有权重，**参数高效微调**只改一小部分。"
     },
     {
@@ -598,6 +641,7 @@ const GLOSSARY = {
       "zh": "",
       "cat": "training",
       "tags": [],
+      "order": 200,
       "def": "参数高效微调的统称，LoRA、Adapter、Prefix Tuning 都属此类。"
     },
     {
@@ -610,6 +654,7 @@ const GLOSSARY = {
         "core",
         "cost"
       ],
+      "order": 210,
       "def": "冻结原权重，旁挂两个小矩阵做低秩修正。显存占用降一个量级，可插拔切换。"
     },
     {
@@ -619,6 +664,7 @@ const GLOSSARY = {
       "zh": "",
       "cat": "training",
       "tags": [],
+      "order": 220,
       "def": "把基座量化到 4bit 再挂 LoRA，单卡可微调大模型。"
     },
     {
@@ -630,6 +676,7 @@ const GLOSSARY = {
       "tags": [
         "cost"
       ],
+      "order": 230,
       "def": "在层间插入小模块的 PEFT 方案，比 LoRA 早，推理时有额外延迟。"
     },
     {
@@ -641,6 +688,7 @@ const GLOSSARY = {
       "tags": [
         "pitfall"
       ],
+      "order": 240,
       "def": "在基座模型上用领域语料再训一轮，注入知识而非改变风格。与微调的目的不同。"
     },
     {
@@ -652,6 +700,7 @@ const GLOSSARY = {
       "tags": [
         "core"
       ],
+      "order": 250,
       "def": "用大模型（教师）的输出训练小模型（学生）。2025 年后还多了一层含义：**把推理模型的思维链蒸给小模型**。"
     },
     {
@@ -661,6 +710,7 @@ const GLOSSARY = {
       "zh": "灾难性遗忘",
       "cat": "training",
       "tags": [],
+      "order": 260,
       "def": "学新任务把旧能力忘掉。微调过度时的典型病症。"
     },
     {
@@ -672,6 +722,7 @@ const GLOSSARY = {
       "tags": [
         "debate"
       ],
+      "order": 270,
       "def": "规模跨过某阈值后突然出现的能力。**注意：这个说法近年受到质疑**，很多\"涌现\"被证明是评测指标不连续造成的假象。"
     },
     {
@@ -683,6 +734,7 @@ const GLOSSARY = {
       "tags": [
         "cost"
       ],
+      "order": 280,
       "def": "用模型生成训练数据。成本低，但会**模型崩溃（model collapse）**——反复用自己的输出训练自己会退化。"
     },
     {
@@ -692,6 +744,7 @@ const GLOSSARY = {
       "zh": "数据清洗/配比",
       "cat": "training",
       "tags": [],
+      "order": 290,
       "def": "去重、去毒、质量打分、领域配比。业内公认它比架构更能决定效果。"
     },
     {
@@ -701,6 +754,7 @@ const GLOSSARY = {
       "zh": "数据污染",
       "cat": "training",
       "tags": [],
+      "order": 300,
       "def": "评测集泄漏进训练集，分数虚高。详见「评测与基准」一节。"
     },
     {
@@ -713,6 +767,7 @@ const GLOSSARY = {
         "core",
         "pitfall"
       ],
+      "order": 10,
       "def": "模型前向计算、产出结果的过程。是动词性的工程词，对应\"推理成本\"\"推理芯片\"\"推理延迟\"。"
     },
     {
@@ -725,6 +780,7 @@ const GLOSSARY = {
         "core",
         "pitfall"
       ],
+      "order": 20,
       "def": "模型生成看似合理但与事实不符的内容。分**事实性幻觉**（说错事实）和**忠实性幻觉**（偏离给定材料）。根因是它优化的是\"下一个 token 的概率\"，不是\"真实性\"。"
     },
     {
@@ -737,6 +793,7 @@ const GLOSSARY = {
         "core",
         "pitfall"
       ],
+      "order": 30,
       "def": "模型做多步逻辑推导的能力或行为。是能力词，对应\"推理模型\"\"推理链\"\"推理能力\"。"
     },
     {
@@ -748,6 +805,7 @@ const GLOSSARY = {
       "tags": [
         "new"
       ],
+      "order": 40,
       "def": "生成答案前先产出长思维链的模型，如 o 系列、R1 系列。特点是**用推理时间换准确率**。"
     },
     {
@@ -759,6 +817,7 @@ const GLOSSARY = {
       "tags": [
         "core"
       ],
+      "order": 50,
       "def": "让模型\"先写步骤再给答案\"。2022 年发现，一句\"Let's think step by step\"就能显著提升数学题正确率。"
     },
     {
@@ -768,6 +827,7 @@ const GLOSSARY = {
       "zh": "",
       "cat": "reasoning",
       "tags": [],
+      "order": 60,
       "def": "不加示例，只加一句引导语触发思维链。"
     },
     {
@@ -777,6 +837,7 @@ const GLOSSARY = {
       "zh": "",
       "cat": "reasoning",
       "tags": [],
+      "order": 70,
       "def": "给几个（或一个）示例再让模型做。属于最原始的\"提示工程\"。"
     },
     {
@@ -788,6 +849,7 @@ const GLOSSARY = {
       "tags": [
         "core"
       ],
+      "order": 80,
       "def": "不更新权重，仅靠上下文中的示例让模型学会新任务。是 LLM 最反直觉的能力之一。"
     },
     {
@@ -799,6 +861,7 @@ const GLOSSARY = {
       "tags": [
         "cost"
       ],
+      "order": 90,
       "def": "采样多条推理路径，投票选最多数的答案。用算力换稳定性。"
     },
     {
@@ -808,6 +871,7 @@ const GLOSSARY = {
       "zh": "",
       "cat": "reasoning",
       "tags": [],
+      "order": 100,
       "def": "交替进行\"思考一步、调用一次工具\"的范式。Agent 的基础循环。"
     },
     {
@@ -817,6 +881,7 @@ const GLOSSARY = {
       "zh": "思维树",
       "cat": "reasoning",
       "tags": [],
+      "order": 110,
       "def": "把推理展开成树，多分支探索并回溯。代价高，适合难题。"
     },
     {
@@ -826,6 +891,7 @@ const GLOSSARY = {
       "zh": "",
       "cat": "reasoning",
       "tags": [],
+      "order": 120,
       "def": "让模型检查自己的输出并迭代改进。单靠\"自我批评\"提升有限，配外部验证器才有效。"
     },
     {
@@ -840,6 +906,7 @@ const GLOSSARY = {
         "new",
         "pitfall"
       ],
+      "order": 130,
       "def": "推理阶段多花算力（多想、多采样、多搜索）来提升质量。与\"训练时堆参数\"是两条不同的规模化路线。"
     },
     {
@@ -851,6 +918,7 @@ const GLOSSARY = {
       "tags": [
         "new"
       ],
+      "order": 140,
       "def": "产品层面对 Test-Time Compute 的封装：给模型分配多少\"思考 token\"。"
     },
     {
@@ -860,6 +928,7 @@ const GLOSSARY = {
       "zh": "",
       "cat": "reasoning",
       "tags": [],
+      "order": 150,
       "def": "借自心理学：System 1 是快速直觉（普通模型直接出答案），System 2 是慢速深思（推理模型先想再答）。"
     },
     {
@@ -869,6 +938,7 @@ const GLOSSARY = {
       "zh": "解码/采样",
       "cat": "reasoning",
       "tags": [],
+      "order": 160,
       "def": "从概率分布里选下一个 token 的策略。"
     },
     {
@@ -878,6 +948,7 @@ const GLOSSARY = {
       "zh": "贪心解码",
       "cat": "reasoning",
       "tags": [],
+      "order": 170,
       "def": "每次选概率最高的。确定性强，容易重复。"
     },
     {
@@ -887,6 +958,7 @@ const GLOSSARY = {
       "zh": "束搜索",
       "cat": "reasoning",
       "tags": [],
+      "order": 180,
       "def": "同时保留多条候选路径。翻译常用，开放生成少用（太死板）。"
     },
     {
@@ -898,6 +970,7 @@ const GLOSSARY = {
       "tags": [
         "core"
       ],
+      "order": 190,
       "def": "采样随机性。0 近乎确定，1 以上发散。**它不是\"创造力旋钮\"，是分布锐化/平坦化。**"
     },
     {
@@ -907,6 +980,7 @@ const GLOSSARY = {
       "zh": "",
       "cat": "reasoning",
       "tags": [],
+      "order": 200,
       "def": "只在累计概率前 p（或前 k 个）候选里采样，截掉长尾怪词。"
     },
     {
@@ -916,6 +990,7 @@ const GLOSSARY = {
       "zh": "",
       "cat": "reasoning",
       "tags": [],
+      "order": 210,
       "def": "压制重复 token 的惩罚项。"
     },
     {
@@ -925,6 +1000,7 @@ const GLOSSARY = {
       "zh": "结构化输出",
       "cat": "reasoning",
       "tags": [],
+      "order": 220,
       "def": "强制模型按给定 schema 输出。靠**约束解码**实现，不是靠\"求它好好输出\"。"
     },
     {
@@ -934,6 +1010,7 @@ const GLOSSARY = {
       "zh": "约束解码",
       "cat": "reasoning",
       "tags": [],
+      "order": 230,
       "def": "在每步采样时屏蔽不符合语法的 token，从机制上保证格式合法。"
     },
     {
@@ -945,6 +1022,7 @@ const GLOSSARY = {
       "tags": [
         "core"
       ],
+      "order": 10,
       "def": "给模型的输入。包含 **System Prompt**（角色与规则，优先级最高）、**User Prompt**（本次任务）、**Assistant**（历史回复）。"
     },
     {
@@ -957,6 +1035,7 @@ const GLOSSARY = {
         "core",
         "pitfall"
       ],
+      "order": 20,
       "def": "通过改写输入来提升输出质量的技艺。边界正在被\"上下文工程\"吞并。"
     },
     {
@@ -970,6 +1049,7 @@ const GLOSSARY = {
         "eng",
         "new"
       ],
+      "order": 30,
       "def": "比提示工程更大的范畴：决定**什么信息、以什么顺序、占多少 token** 进入上下文窗口。包含检索、记忆、压缩、工具结果管理。"
     },
     {
@@ -981,6 +1061,7 @@ const GLOSSARY = {
       "tags": [
         "eng"
       ],
+      "order": 40,
       "def": "带变量占位的提示词，工程化的基本单位。"
     },
     {
@@ -990,6 +1071,7 @@ const GLOSSARY = {
       "zh": "提示链",
       "cat": "prompting",
       "tags": [],
+      "order": 50,
       "def": "把复杂任务拆成多步、上一步输出喂给下一步。比单次长提示更可控。"
     },
     {
@@ -1003,6 +1085,7 @@ const GLOSSARY = {
         "eng",
         "pitfall"
       ],
+      "order": 60,
       "def": "长上下文里位于中段的信息最容易被忽略，首尾的信息利用得最好。**\"支持 1M 上下文\"不等于\"能用好 1M 上下文\"。**"
     },
     {
@@ -1015,6 +1098,7 @@ const GLOSSARY = {
         "cost",
         "new"
       ],
+      "order": 70,
       "def": "上下文塞太满导致注意力分散、指令被淹没、成本飙升。Agent 长跑失败的主因之一。"
     },
     {
@@ -1024,6 +1108,7 @@ const GLOSSARY = {
       "zh": "提示压缩",
       "cat": "prompting",
       "tags": [],
+      "order": 80,
       "def": "把长上下文摘要或裁剪后再喂给模型。"
     },
     {
@@ -1036,6 +1121,7 @@ const GLOSSARY = {
         "cost",
         "eng"
       ],
+      "order": 90,
       "def": "服务端缓存重复的前缀（系统提示、长文档），命中后按更低价格计费。工程上省钱的第一手段。"
     },
     {
@@ -1045,6 +1131,7 @@ const GLOSSARY = {
       "zh": "负向提示",
       "cat": "prompting",
       "tags": [],
+      "order": 100,
       "def": "主要用在图像生成，告诉模型\"不要什么\"。文本模型里作用有限。"
     },
     {
@@ -1057,6 +1144,7 @@ const GLOSSARY = {
         "core",
         "eng"
       ],
+      "order": 10,
       "def": "先从外部知识库检索相关片段，再把片段拼进上下文让模型作答。解决\"模型不知道新知识\"和\"编造引用\"两个问题。"
     },
     {
@@ -1068,6 +1156,7 @@ const GLOSSARY = {
       "tags": [
         "core"
       ],
+      "order": 20,
       "def": "把文档切成适合检索的片段。块太大检索不准，太小丢上下文。**按语义/标题切优于按固定字数切**。"
     },
     {
@@ -1079,6 +1168,7 @@ const GLOSSARY = {
       "tags": [
         "core"
       ],
+      "order": 30,
       "def": "专门把文本转成向量的模型，如 BGE、E5、text-embedding-3。与生成模型是两套东西，选错向量模型比选错 LLM 影响更大。"
     },
     {
@@ -1090,6 +1180,7 @@ const GLOSSARY = {
       "tags": [
         "core"
       ],
+      "order": 40,
       "def": "存向量并做近似最近邻检索（**ANN**）的数据库，如 Milvus、Qdrant、Weaviate、pgvector。"
     },
     {
@@ -1101,6 +1192,7 @@ const GLOSSARY = {
       "tags": [
         "eng"
       ],
+      "order": 50,
       "def": "近似最近邻搜索，用少量精度换数量级的速度。**HNSW** 是最常用的索引结构。"
     },
     {
@@ -1110,6 +1202,7 @@ const GLOSSARY = {
       "zh": "语义检索",
       "cat": "rag",
       "tags": [],
+      "order": 60,
       "def": "按向量相似度找，能命中\"换了说法但意思相同\"的内容。"
     },
     {
@@ -1119,6 +1212,7 @@ const GLOSSARY = {
       "zh": "稀疏检索",
       "cat": "rag",
       "tags": [],
+      "order": 70,
       "def": "基于词频的传统检索，**BM25** 是代表。对专有名词、型号、代码符号特别准。"
     },
     {
@@ -1130,6 +1224,7 @@ const GLOSSARY = {
       "tags": [
         "eng"
       ],
+      "order": 80,
       "def": "稠密+稀疏两路召回再融合。**生产环境几乎都该用这个**，纯向量检索对精确关键词很弱。"
     },
     {
@@ -1141,6 +1236,7 @@ const GLOSSARY = {
       "tags": [
         "core"
       ],
+      "order": 90,
       "def": "对召回结果做二次精排（通常用 cross-encoder 逐对打分）。召回靠粗，排序靠精。"
     },
     {
@@ -1150,6 +1246,7 @@ const GLOSSARY = {
       "zh": "召回率/精确率",
       "cat": "rag",
       "tags": [],
+      "order": 100,
       "def": "召回=该找到的找到了多少，精确=找到的里面有多少是对的。检索链路先保召回，再靠 rerank 提精确。"
     },
     {
@@ -1159,6 +1256,7 @@ const GLOSSARY = {
       "zh": "",
       "cat": "rag",
       "tags": [],
+      "order": 110,
       "def": "取相似度最高的 K 条。K 太大引入噪音，太小漏信息。"
     },
     {
@@ -1168,6 +1266,7 @@ const GLOSSARY = {
       "zh": "查询改写",
       "cat": "rag",
       "tags": [],
+      "order": 120,
       "def": "把用户口语化的问题改写成检索友好的形式，多轮对话里还要补全指代。"
     },
     {
@@ -1177,6 +1276,7 @@ const GLOSSARY = {
       "zh": "",
       "cat": "rag",
       "tags": [],
+      "order": 130,
       "def": "先让模型编一个\"假答案\"，用假答案的向量去检索。听着离谱但有效，因为假答案和真文档在同一语义空间。"
     },
     {
@@ -1186,6 +1286,7 @@ const GLOSSARY = {
       "zh": "多跳问答",
       "cat": "rag",
       "tags": [],
+      "order": 140,
       "def": "需要连续检索多次、串起多个事实才能回答的问题。单轮 RAG 的典型短板。"
     },
     {
@@ -1199,6 +1300,7 @@ const GLOSSARY = {
         "eng",
         "new"
       ],
+      "order": 150,
       "def": "把知识建成实体关系图再检索，适合\"跨文档总结\"和\"全局性问题\"。成本高，索引构建慢。"
     },
     {
@@ -1211,6 +1313,7 @@ const GLOSSARY = {
         "eng",
         "new"
       ],
+      "order": 160,
       "def": "让 Agent 自主决定检索什么、检索几轮、要不要换查询。比固定流水线灵活。"
     },
     {
@@ -1220,6 +1323,7 @@ const GLOSSARY = {
       "zh": "接地/落地",
       "cat": "rag",
       "tags": [],
+      "order": 170,
       "def": "让回答绑定到可验证的外部来源，减少幻觉。**Grounded Answer** 指每个论断都能追到出处。"
     },
     {
@@ -1231,6 +1335,7 @@ const GLOSSARY = {
       "tags": [
         "pitfall"
       ],
+      "order": 180,
       "def": "输出里标注来源。注意：**模型能生成看起来很像的假引用**，必须由系统层校验。"
     },
     {
@@ -1240,6 +1345,7 @@ const GLOSSARY = {
       "zh": "知识库",
       "cat": "rag",
       "tags": [],
+      "order": 190,
       "def": "泛指供检索的结构化/非结构化资料集合。"
     },
     {
@@ -1252,6 +1358,7 @@ const GLOSSARY = {
         "core",
         "pitfall"
       ],
+      "order": 200,
       "def": "不是替代关系。长上下文解决\"一次能看多少\"，RAG 解决\"哪些值得看\"。**数据量大时 RAG 省钱，需要全局理解时长上下文更强**。"
     },
     {
@@ -1261,6 +1368,7 @@ const GLOSSARY = {
       "zh": "上下文硬塞",
       "cat": "rag",
       "tags": [],
+      "order": 210,
       "def": "不管相关性把整份文档全塞进去。省事，但贵且容易迷失。"
     },
     {
@@ -1272,6 +1380,7 @@ const GLOSSARY = {
       "tags": [
         "core"
       ],
+      "order": 10,
       "def": "能自主规划、调用工具、根据反馈迭代直到完成目标的系统。判定标准不是\"接了 LLM\"，而是**有没有闭环**。"
     },
     {
@@ -1281,6 +1390,7 @@ const GLOSSARY = {
       "zh": "代理式的",
       "cat": "agent",
       "tags": [],
+      "order": 20,
       "def": "形容具备自主决策与多步执行的特性。**Agentic Workflow** 指按预设流程编排多个 LLM 步骤。"
     },
     {
@@ -1293,6 +1403,7 @@ const GLOSSARY = {
         "core",
         "pitfall"
       ],
+      "order": 30,
       "def": "Workflow 的路径是人定的，Agent 的路径是模型现场决定的。**能用 workflow 解决就别上 agent**，前者可调试、可计费、可预测。"
     },
     {
@@ -1304,6 +1415,7 @@ const GLOSSARY = {
       "tags": [
         "core"
       ],
+      "order": 40,
       "def": "模型输出结构化的调用意图，由外部执行并回填结果。模型本身不执行任何东西。"
     },
     {
@@ -1317,6 +1429,7 @@ const GLOSSARY = {
         "eng",
         "new"
       ],
+      "order": 50,
       "def": "Anthropic 2024 年底提出的开放协议，统一模型与外部工具/数据源的接入方式。类比\"AI 界的 USB-C\"。"
     },
     {
@@ -1329,6 +1442,7 @@ const GLOSSARY = {
         "eng",
         "new"
       ],
+      "order": 60,
       "def": "让不同 Agent 之间互相通信协作的协议，由 Google 主导。"
     },
     {
@@ -1338,6 +1452,7 @@ const GLOSSARY = {
       "zh": "多智能体",
       "cat": "agent",
       "tags": [],
+      "order": 70,
       "def": "多个角色分工协作，如 **Orchestrator**（编排者）+ **Worker**（执行者）、**Planner** + **Executor**、**Critic**（批评者）。"
     },
     {
@@ -1349,6 +1464,7 @@ const GLOSSARY = {
       "tags": [
         "new"
       ],
+      "order": 80,
       "def": "主代理派生出的专职代理，用来隔离上下文、并行处理子任务。"
     },
     {
@@ -1358,6 +1474,7 @@ const GLOSSARY = {
       "zh": "规划",
       "cat": "agent",
       "tags": [],
+      "order": 90,
       "def": "把目标拆成可执行步骤。分**先规划后执行**和**边做边规划（interleaved）** 两类。"
     },
     {
@@ -1369,6 +1486,7 @@ const GLOSSARY = {
       "tags": [
         "core"
       ],
+      "order": 100,
       "def": "跨轮次保留信息。**短期记忆**=上下文窗口内的对话；**长期记忆**=外部存储+检索。业界黑话\"上下文是新的内存，检索是新的磁盘\"。"
     },
     {
@@ -1378,6 +1496,7 @@ const GLOSSARY = {
       "zh": "草稿纸",
       "cat": "agent",
       "tags": [],
+      "order": 110,
       "def": "模型用来写中间推导的临时区域，不暴露给用户。"
     },
     {
@@ -1387,6 +1506,7 @@ const GLOSSARY = {
       "zh": "反思",
       "cat": "agent",
       "tags": [],
+      "order": 120,
       "def": "执行后回看结果、发现错误、修正计划。Agent 从\"跑一遍\"升级到\"跑得对\"的关键。"
     },
     {
@@ -1396,6 +1516,7 @@ const GLOSSARY = {
       "zh": "人在回路",
       "cat": "agent",
       "tags": [],
+      "order": 130,
       "def": "关键节点插入人工确认。高风险操作（转账、删除、发布）的必备设计。"
     },
     {
@@ -1408,6 +1529,7 @@ const GLOSSARY = {
         "eng",
         "pitfall"
       ],
+      "order": 140,
       "def": "对输入输出做规则/模型检查，拦截越权、敏感、格式错误。与\"对齐\"不同：对齐在训练时做，护栏在运行时做。"
     },
     {
@@ -1417,6 +1539,7 @@ const GLOSSARY = {
       "zh": "沙箱",
       "cat": "agent",
       "tags": [],
+      "order": 150,
       "def": "隔离执行环境，限制文件、网络、权限。让 Agent 跑代码的前提。"
     },
     {
@@ -1426,6 +1549,7 @@ const GLOSSARY = {
       "zh": "操作电脑/浏览器",
       "cat": "agent",
       "tags": [],
+      "order": 160,
       "def": "模型通过截图+点击操作真实界面。通用但慢且脆。"
     },
     {
@@ -1435,6 +1559,7 @@ const GLOSSARY = {
       "zh": "代码解释器",
       "cat": "agent",
       "tags": [],
+      "order": 170,
       "def": "让模型写代码并执行，用代码算数、处理文件。**比让模型心算可靠得多**。"
     },
     {
@@ -1446,6 +1571,7 @@ const GLOSSARY = {
       "tags": [
         "new"
       ],
+      "order": 180,
       "def": "打包好的可复用能力单元（提示+脚本+资源），按需加载。"
     },
     {
@@ -1459,6 +1585,7 @@ const GLOSSARY = {
         "eng",
         "new"
       ],
+      "order": 190,
       "def": "围绕模型的工程基础设施：工具、循环、校验、上下文管理。同一个模型换个 harness，效果能差一倍。"
     },
     {
@@ -1472,6 +1599,7 @@ const GLOSSARY = {
         "eng",
         "new"
       ],
+      "order": 200,
       "def": "设计\"模型→行动→验证→再行动\"这个循环的工程学。核心难点是**验证器写不写得出来**。"
     },
     {
@@ -1483,6 +1611,7 @@ const GLOSSARY = {
       "tags": [
         "eng"
       ],
+      "order": 210,
       "def": "调度多个模型/工具/子任务的顶层逻辑。"
     },
     {
@@ -1494,6 +1623,7 @@ const GLOSSARY = {
       "tags": [
         "core"
       ],
+      "order": 10,
       "def": "标准化题库。看榜单要记住：**厂商只报自己赢的那几个**。"
     },
     {
@@ -1503,6 +1633,7 @@ const GLOSSARY = {
       "zh": "",
       "cat": "evaluation",
       "tags": [],
+      "order": 20,
       "def": "57 学科的选择题，考通用知识。已基本饱和，Pro 版加了难度。"
     },
     {
@@ -1514,6 +1645,7 @@ const GLOSSARY = {
       "tags": [
         "eng"
       ],
+      "order": 30,
       "def": "研究生/博士级理科题，防搜索引擎作弊设计。**GPQA Diamond** 是其中最难子集。"
     },
     {
@@ -1523,6 +1655,7 @@ const GLOSSARY = {
       "zh": "",
       "cat": "evaluation",
       "tags": [],
+      "order": 40,
       "def": "小学数学应用题 / 竞赛数学。GSM8K 早被刷爆，MATH 也接近饱和。"
     },
     {
@@ -1532,6 +1665,7 @@ const GLOSSARY = {
       "zh": "",
       "cat": "evaluation",
       "tags": [],
+      "order": 50,
       "def": "基础代码生成题。**已严重饱和，不再有区分度**。"
     },
     {
@@ -1544,6 +1678,7 @@ const GLOSSARY = {
         "eng",
         "new"
       ],
+      "order": 60,
       "def": "真实 GitHub issue 修复任务，是目前最能反映\"工程能力\"的榜单。**SWE-bench Verified** 是人工筛过的可靠子集。"
     },
     {
@@ -1553,6 +1688,7 @@ const GLOSSARY = {
       "zh": "",
       "cat": "evaluation",
       "tags": [],
+      "order": 70,
       "def": "抽象推理谜题，考\"没见过的新规则能不能现场学会\"。人类轻松，模型吃力。"
     },
     {
@@ -1564,6 +1700,7 @@ const GLOSSARY = {
       "tags": [
         "new"
       ],
+      "order": 80,
       "def": "专家级跨学科难题集，为\"下一代评测\"设计，防止快速饱和。"
     },
     {
@@ -1573,6 +1710,7 @@ const GLOSSARY = {
       "zh": "",
       "cat": "evaluation",
       "tags": [],
+      "order": 90,
       "def": "盲测对战、人类投票、算 **Elo** 分。优点是不依赖标准答案，缺点是偏向\"讨喜\"而非\"正确\"。"
     },
     {
@@ -1585,6 +1723,7 @@ const GLOSSARY = {
         "core",
         "cost"
       ],
+      "order": 100,
       "def": "用强模型给弱模型打分。成本低、可扩展，但有**位置偏好、长度偏好、自我偏好**三类系统性偏差。"
     },
     {
@@ -1596,6 +1735,7 @@ const GLOSSARY = {
       "tags": [
         "eng"
       ],
+      "order": 110,
       "def": "人工标注过的高质量评测集，用于回归测试。**做产品比追榜单更需要它**。"
     },
     {
@@ -1605,6 +1745,7 @@ const GLOSSARY = {
       "zh": "",
       "cat": "evaluation",
       "tags": [],
+      "order": 120,
       "def": "k 次尝试里至少有一次正确的概率，代码评测常用。**Pass@1** 更接近真实体验。"
     },
     {
@@ -1614,6 +1755,7 @@ const GLOSSARY = {
       "zh": "困惑度/PPL",
       "cat": "evaluation",
       "tags": [],
+      "order": 130,
       "def": "模型对文本的\"惊讶程度\"，越低越好。是预训练指标，**与人喜欢的回答质量不是一回事**。"
     },
     {
@@ -1625,6 +1767,7 @@ const GLOSSARY = {
       "tags": [
         "cost"
       ],
+      "order": 140,
       "def": "机器翻译/摘要的 n-gram 重叠度指标。便宜但对语义不敏感，已被 LLM 评审取代。"
     },
     {
@@ -1634,6 +1777,7 @@ const GLOSSARY = {
       "zh": "数据污染",
       "cat": "evaluation",
       "tags": [],
+      "order": 150,
       "def": "评测题混进了训练集，分数不可信。检测靠 n-gram 重合、改写扰动。"
     },
     {
@@ -1643,6 +1787,7 @@ const GLOSSARY = {
       "zh": "饱和/刷榜",
       "cat": "evaluation",
       "tags": [],
+      "order": 160,
       "def": "榜单分数被追平到失去区分度。每个基准都有保质期。"
     },
     {
@@ -1654,6 +1799,7 @@ const GLOSSARY = {
       "tags": [
         "eng"
       ],
+      "order": 170,
       "def": "批量跑评测的框架，如 lm-evaluation-harness。"
     },
     {
@@ -1666,6 +1812,7 @@ const GLOSSARY = {
         "debate",
         "hype"
       ],
+      "order": 180,
       "def": "没有指标，靠人试用后\"感觉行不行\"。被半开玩笑地当成真实标准，因为**离线指标和线上体验经常不一致**。"
     },
     {
@@ -1675,6 +1822,7 @@ const GLOSSARY = {
       "zh": "线上分流实验",
       "cat": "evaluation",
       "tags": [],
+      "order": 190,
       "def": "唯一能证明\"真的更好\"的方法。"
     },
     {
@@ -1686,6 +1834,7 @@ const GLOSSARY = {
       "tags": [
         "cost"
       ],
+      "order": 10,
       "def": "把模型包装成 API 对外提供。核心指标是吞吐、延迟、成本三者取舍。"
     },
     {
@@ -1698,6 +1847,7 @@ const GLOSSARY = {
         "cost",
         "eng"
       ],
+      "order": 20,
       "def": "从发请求到收到第一个 token 的时间。**流式体验的生死线**，用户感知的是它。"
     },
     {
@@ -1707,6 +1857,7 @@ const GLOSSARY = {
       "zh": "每字延迟",
       "cat": "serving",
       "tags": [],
+      "order": 30,
       "def": "后续每个 token 的间隔，决定\"读起来顺不顺\"。"
     },
     {
@@ -1718,6 +1869,7 @@ const GLOSSARY = {
       "tags": [
         "cost"
       ],
+      "order": 40,
       "def": "单位时间处理的 token 数。**吞吐和延迟是对立的**：大批量能提吞吐但抬高单请求延迟。"
     },
     {
@@ -1729,6 +1881,7 @@ const GLOSSARY = {
       "tags": [
         "cost"
       ],
+      "order": 50,
       "def": "推理的两个阶段。Prefill 并行处理输入（**算力瓶颈**），Decode 逐个吐字（**显存带宽瓶颈**）。两者优化手段完全不同。"
     },
     {
@@ -1738,6 +1891,7 @@ const GLOSSARY = {
       "zh": "批处理",
       "cat": "serving",
       "tags": [],
+      "order": 60,
       "def": "多个请求一起算以提升 GPU 利用率。"
     },
     {
@@ -1747,6 +1901,7 @@ const GLOSSARY = {
       "zh": "连续批处理",
       "cat": "serving",
       "tags": [],
+      "order": 70,
       "def": "请求完成即退出、新请求立即可插入，不用等整批跑完。vLLM 的核心贡献之一。"
     },
     {
@@ -1758,6 +1913,7 @@ const GLOSSARY = {
       "tags": [
         "new"
       ],
+      "order": 80,
       "def": "把 KV Cache 按页管理，像操作系统管理虚拟内存，大幅减少碎片浪费。"
     },
     {
@@ -1769,6 +1925,7 @@ const GLOSSARY = {
       "tags": [
         "new"
       ],
+      "order": 90,
       "def": "小模型先草拟几个 token，大模型一次并行验证，接受对的、丢弃错的。**输出分布不变，速度提升 2-3 倍**。"
     },
     {
@@ -1780,6 +1937,7 @@ const GLOSSARY = {
       "tags": [
         "cost"
       ],
+      "order": 100,
       "def": "相同前缀的 KV Cache 复用，长系统提示场景省一大截。"
     },
     {
@@ -1792,6 +1950,7 @@ const GLOSSARY = {
         "core",
         "cost"
       ],
+      "order": 110,
       "def": "把权重/激活从 FP16 降到 INT8/INT4/FP8。省显存、提速度，质量损失取决于方法。"
     },
     {
@@ -1803,6 +1962,7 @@ const GLOSSARY = {
       "tags": [
         "eng"
       ],
+      "order": 120,
       "def": "三种主流量化方案。GPTQ/AWQ 偏 GPU 部署，**GGUF** 是 llama.cpp 生态的格式，偏本地 CPU/混合推理。"
     },
     {
@@ -1814,6 +1974,7 @@ const GLOSSARY = {
       "tags": [
         "eng"
       ],
+      "order": 130,
       "def": "删掉不重要的权重或整层。硬件友好度不如量化，实际落地较少。"
     },
     {
@@ -1825,6 +1986,7 @@ const GLOSSARY = {
       "tags": [
         "cost"
       ],
+      "order": 140,
       "def": "模型跑不跑得起来的第一约束。**显存带宽**往往比算力更早成为瓶颈。"
     },
     {
@@ -1836,6 +1998,7 @@ const GLOSSARY = {
       "tags": [
         "eng"
       ],
+      "order": 150,
       "def": "NVIDIA / AMD 的 GPU 计算平台。**CUDA 生态壁垒**是英伟达最深的护城河。"
     },
     {
@@ -1845,6 +2008,7 @@ const GLOSSARY = {
       "zh": "",
       "cat": "serving",
       "tags": [],
+      "order": 160,
       "def": "各家自研加速器。推理侧还有 Groq（LPU）、Cerebras（晶圆级）等专用路线。"
     },
     {
@@ -1854,6 +2018,7 @@ const GLOSSARY = {
       "zh": "",
       "cat": "serving",
       "tags": [],
+      "order": 170,
       "def": "GPU 间互联。大模型训练里**通信常常比计算更耗时**。"
     },
     {
@@ -1865,6 +2030,7 @@ const GLOSSARY = {
       "tags": [
         "core"
       ],
+      "order": 180,
       "def": "三大主流推理引擎。vLLM 生态最广，SGLang 在复杂前缀与结构化输出上强，TensorRT-LLM 在 NVIDIA 卡上极限性能最好。"
     },
     {
@@ -1874,6 +2040,7 @@ const GLOSSARY = {
       "zh": "",
       "cat": "serving",
       "tags": [],
+      "order": 190,
       "def": "本地推理三件套，从底层到开箱即用。"
     },
     {
@@ -1885,6 +2052,7 @@ const GLOSSARY = {
       "tags": [
         "cost"
       ],
+      "order": 200,
       "def": "显存爆了。长上下文、大 batch、量化不足都会触发。"
     },
     {
@@ -1894,6 +2062,7 @@ const GLOSSARY = {
       "zh": "",
       "cat": "serving",
       "tags": [],
+      "order": 210,
       "def": "云端 API 的限流单位：每分钟 token 数、每分钟请求数。"
     },
     {
@@ -1906,6 +2075,7 @@ const GLOSSARY = {
         "cost",
         "eng"
       ],
+      "order": 220,
       "def": "按输入输出 token 分别计价，输出通常贵 3-5 倍。**模型选型的实际决策常常就是这道算术题**。"
     },
     {
@@ -1918,6 +2088,7 @@ const GLOSSARY = {
         "cost",
         "new"
       ],
+      "order": 230,
       "def": "按任务难度自动分发到不同价位模型。简单问题用小模型，是降本最直接的手段。"
     },
     {
@@ -1929,6 +2100,7 @@ const GLOSSARY = {
       "tags": [
         "cost"
       ],
+      "order": 240,
       "def": "模型跑在手机、PC 本地。隐私好、无网可用，受显存和功耗限制。"
     },
     {
@@ -1938,6 +2110,7 @@ const GLOSSARY = {
       "zh": "小模型",
       "cat": "serving",
       "tags": [],
+      "order": 250,
       "def": "参数量小（通常 <10B）、可本地跑、特定任务够用的模型。"
     },
     {
@@ -1947,6 +2120,7 @@ const GLOSSARY = {
       "zh": "多模态",
       "cat": "multimodal",
       "tags": [],
+      "order": 10,
       "def": "能处理文本之外（图像、音频、视频）的输入或输出。"
     },
     {
@@ -1956,6 +2130,7 @@ const GLOSSARY = {
       "zh": "视觉语言模型",
       "cat": "multimodal",
       "tags": [],
+      "order": 20,
       "def": "能\"看图说话\"的模型。"
     },
     {
@@ -1965,6 +2140,7 @@ const GLOSSARY = {
       "zh": "",
       "cat": "multimodal",
       "tags": [],
+      "order": 30,
       "def": "把图像和文本对齐到同一向量空间的模型，是\"以文搜图\"和文生图提示理解的基础组件。"
     },
     {
@@ -1976,6 +2152,7 @@ const GLOSSARY = {
       "tags": [
         "new"
       ],
+      "order": 40,
       "def": "原生统一处理多种模态的单一模型，而非拼接多个专用模型。"
     },
     {
@@ -1987,6 +2164,7 @@ const GLOSSARY = {
       "tags": [
         "core"
       ],
+      "order": 50,
       "def": "从噪声逐步去噪生成图像/视频，是当前图像生成主流。"
     },
     {
@@ -1998,6 +2176,7 @@ const GLOSSARY = {
       "tags": [
         "new"
       ],
+      "order": 60,
       "def": "用 Transformer 替代 U-Net 的扩散架构，Sora 级视频模型的基础。"
     },
     {
@@ -2009,6 +2188,7 @@ const GLOSSARY = {
       "tags": [
         "new"
       ],
+      "order": 70,
       "def": "比扩散更直接的生成路径建模，训练更稳、采样更少步。新一代图像模型常用。"
     },
     {
@@ -2020,6 +2200,7 @@ const GLOSSARY = {
       "tags": [
         "cost"
       ],
+      "order": 80,
       "def": "压缩后的特征空间，扩散在潜空间做以省算力。"
     },
     {
@@ -2029,6 +2210,7 @@ const GLOSSARY = {
       "zh": "自动语音识别",
       "cat": "multimodal",
       "tags": [],
+      "order": 90,
       "def": "语音转文字。Whisper 是开源标杆。"
     },
     {
@@ -2038,6 +2220,7 @@ const GLOSSARY = {
       "zh": "文本转语音",
       "cat": "multimodal",
       "tags": [],
+      "order": 100,
       "def": "文字转语音。当前已能做到带情感和韵律的**零样本音色克隆**。"
     },
     {
@@ -2049,6 +2232,7 @@ const GLOSSARY = {
       "tags": [
         "new"
       ],
+      "order": 110,
       "def": "学习环境动态、能预测\"下一步会发生什么\"的模型。被视为视频生成与具身智能的交汇点。"
     },
     {
@@ -2060,6 +2244,7 @@ const GLOSSARY = {
       "tags": [
         "new"
       ],
+      "order": 120,
       "def": "由模型实时生成的、可交互的虚拟场景。"
     },
     {
@@ -2071,6 +2256,7 @@ const GLOSSARY = {
       "tags": [
         "new"
       ],
+      "order": 130,
       "def": "视觉+语言直接输出动作，具身智能/机器人的主流范式。"
     },
     {
@@ -2080,6 +2266,7 @@ const GLOSSARY = {
       "zh": "具身智能",
       "cat": "multimodal",
       "tags": [],
+      "order": 140,
       "def": "有物理身体、能与环境交互的 AI。"
     },
     {
@@ -2091,6 +2278,7 @@ const GLOSSARY = {
       "tags": [
         "sec"
       ],
+      "order": 10,
       "def": "防止 AI 系统造成意外或恶意伤害的总体领域。分** misuse**（被人滥用）、**misalignment**（目标跑偏）、**systemic**（社会系统性风险）三层。"
     },
     {
@@ -2104,6 +2292,7 @@ const GLOSSARY = {
         "pitfall",
         "sec"
       ],
+      "order": 20,
       "def": "把恶意指令藏在输入内容里，劫持模型行为。**直接注入**来自用户，**间接注入**藏在网页/文档/邮件里——**后者才是 Agent 时代的真正威胁**。"
     },
     {
@@ -2116,6 +2305,7 @@ const GLOSSARY = {
         "pitfall",
         "sec"
       ],
+      "order": 30,
       "def": "越狱是\"让模型违反自己的规则\"，注入是\"让模型执行攻击者的指令\"。前者针对模型，后者针对应用。"
     },
     {
@@ -2127,6 +2317,7 @@ const GLOSSARY = {
       "tags": [
         "sec"
       ],
+      "order": 40,
       "def": "在训练数据里埋后门或偏见，让模型在特定触发词下行为异常。"
     },
     {
@@ -2140,6 +2331,7 @@ const GLOSSARY = {
         "pitfall",
         "sec"
       ],
+      "order": 50,
       "def": "做安全对齐会牺牲一部分能力。这个 trade-off 是真实存在的，只是大小有争议。"
     },
     {
@@ -2151,6 +2343,7 @@ const GLOSSARY = {
       "tags": [
         "sec"
       ],
+      "order": 60,
       "def": "理解模型内部在做什么。**Mechanistic Interpretability（机制可解释性）** 试图把网络逆向成可读的特征与回路。"
     },
     {
@@ -2163,6 +2356,7 @@ const GLOSSARY = {
         "new",
         "sec"
       ],
+      "order": 70,
       "def": "从激活里提取可解释特征的主流工具，用于找\"概念方向\"。"
     },
     {
@@ -2175,6 +2369,7 @@ const GLOSSARY = {
         "new",
         "sec"
       ],
+      "order": 80,
       "def": "找到某个语义方向后直接加减激活来改变行为，比如\"减少谄媚\"。"
     },
     {
@@ -2186,6 +2381,7 @@ const GLOSSARY = {
       "tags": [
         "sec"
       ],
+      "order": 90,
       "def": "模型拒绝执行不安全请求。**过度拒答（over-refusal）** 本身也是缺陷。"
     },
     {
@@ -2197,6 +2393,7 @@ const GLOSSARY = {
       "tags": [
         "sec"
       ],
+      "order": 100,
       "def": "模型倾向于迎合用户而非说真话。RLHF 的副作用之一。"
     },
     {
@@ -2208,6 +2405,7 @@ const GLOSSARY = {
       "tags": [
         "sec"
       ],
+      "order": 110,
       "def": "训练数据带来的系统性倾向，涉及性别、种族、地域等。"
     },
     {
@@ -2219,6 +2417,7 @@ const GLOSSARY = {
       "tags": [
         "sec"
       ],
+      "order": 120,
       "def": "侮辱、仇恨、暴力等有害内容。"
     },
     {
@@ -2230,6 +2429,7 @@ const GLOSSARY = {
       "tags": [
         "sec"
       ],
+      "order": 130,
       "def": "模型吐出训练数据中的个人信息。**Membership Inference** 是反推\"某条数据是否在训练集里\"的攻击。"
     },
     {
@@ -2241,6 +2441,7 @@ const GLOSSARY = {
       "tags": [
         "sec"
       ],
+      "order": 140,
       "def": "在生成内容里嵌入可检测标记。**C2PA** 是内容来源与真实性的行业标准。"
     },
     {
@@ -2253,6 +2454,7 @@ const GLOSSARY = {
         "debate",
         "hype"
       ],
+      "order": 150,
       "def": "能在多数认知任务上达到或超过人类水平的系统。**定义本身就有争议，所以它更像一个立场而非一个指标**。"
     },
     {
@@ -2264,6 +2466,7 @@ const GLOSSARY = {
       "tags": [
         "sec"
       ],
+      "order": 160,
       "def": "全面超越人类的假想系统。"
     },
     {
@@ -2275,6 +2478,7 @@ const GLOSSARY = {
       "tags": [
         "sec"
       ],
+      "order": 170,
       "def": "研究如何对齐\"比人聪明得多\"的系统。"
     },
     {
@@ -2286,6 +2490,7 @@ const GLOSSARY = {
       "tags": [
         "sec"
       ],
+      "order": 180,
       "def": "AI 导致人类文明级灾难的可能性。是安全阵营内部最分裂的话题。"
     },
     {
@@ -2298,6 +2503,7 @@ const GLOSSARY = {
         "debate",
         "pitfall"
       ],
+      "order": 10,
       "def": "Llama、Qwen 多是**开放权重**：能下载能跑能微调，但训练数据与流程不公开。严格意义的开源模型（如 OLMo）才给全套。"
     },
     {
@@ -2309,6 +2515,7 @@ const GLOSSARY = {
       "tags": [
         "eng"
       ],
+      "order": 20,
       "def": "模型托管平台，Hugging Face 是事实标准。"
     },
     {
@@ -2318,6 +2525,7 @@ const GLOSSARY = {
       "zh": "模型卡",
       "cat": "ecosystem",
       "tags": [],
+      "order": 30,
       "def": "模型的说明书：训练数据、评测结果、已知限制。"
     },
     {
@@ -2327,6 +2535,7 @@ const GLOSSARY = {
       "zh": "",
       "cat": "ecosystem",
       "tags": [],
+      "order": 40,
       "def": "安全的权重存储格式，替代 pickle 以防反序列化攻击。"
     },
     {
@@ -2336,6 +2545,7 @@ const GLOSSARY = {
       "zh": "检查点",
       "cat": "ecosystem",
       "tags": [],
+      "order": 50,
       "def": "训练中途保存的权重快照。"
     },
     {
@@ -2347,6 +2557,7 @@ const GLOSSARY = {
       "tags": [
         "eng"
       ],
+      "order": 60,
       "def": "早期两大应用框架。LangChain 偏通用编排，LlamaIndex 偏 RAG 与数据接入。"
     },
     {
@@ -2358,6 +2569,7 @@ const GLOSSARY = {
       "tags": [
         "eng"
       ],
+      "order": 70,
       "def": "新一代 Agent 编排框架，共同点是**把 Agent 表达成图或有状态流程**，而非线性链。"
     },
     {
@@ -2369,6 +2581,7 @@ const GLOSSARY = {
       "tags": [
         "eng"
       ],
+      "order": 80,
       "def": "微软的 .NET/Python 侧 Agent 框架，企业环境常见。"
     },
     {
@@ -2380,6 +2593,7 @@ const GLOSSARY = {
       "tags": [
         "eng"
       ],
+      "order": 90,
       "def": "低代码 AI 应用平台，把提示、知识库、工作流可视化拼装。"
     },
     {
@@ -2392,6 +2606,7 @@ const GLOSSARY = {
         "cost",
         "eng"
       ],
+      "order": 100,
       "def": "面向 LLM 应用的运维：提示版本管理、评测回归、成本监控、线上追踪。"
     },
     {
@@ -2404,6 +2619,7 @@ const GLOSSARY = {
         "cost",
         "eng"
       ],
+      "order": 110,
       "def": "记录每次调用的完整链路（提示、工具、耗时、成本），LangSmith、Langfuse 是代表工具。"
     },
     {
@@ -2415,6 +2631,7 @@ const GLOSSARY = {
       "tags": [
         "hype"
       ],
+      "order": 120,
       "def": "从设计之初就把模型能力当核心构件的产品，而不是给旧产品加个聊天框。"
     },
     {
@@ -2424,6 +2641,7 @@ const GLOSSARY = {
       "zh": "",
       "cat": "ecosystem",
       "tags": [],
+      "order": 130,
       "def": "Copilot 是\"你主导、它补全\"，Agent 是\"你给目标、它执行\"。产品定位的分水岭。"
     },
     {
@@ -2436,6 +2654,7 @@ const GLOSSARY = {
         "debate",
         "hype"
       ],
+      "order": 140,
       "def": "只在 API 外面包一层界面、没有自有壁垒的产品。**批评者的说法；实际上护城河可以建在分发、数据、工作流上**。"
     },
     {
@@ -2447,6 +2666,7 @@ const GLOSSARY = {
       "tags": [
         "hype"
       ],
+      "order": 150,
       "def": "用户使用产生数据、数据改进模型、模型吸引更多用户的正循环。"
     },
     {
@@ -2459,6 +2679,7 @@ const GLOSSARY = {
         "hype",
         "new"
       ],
+      "order": 10,
       "def": "Karpathy 2025 年提出：不看代码、只看效果，用自然语言让 AI 写程序。**从\"写代码\"转向\"描述想要什么\"**。"
     },
     {
@@ -2471,6 +2692,7 @@ const GLOSSARY = {
         "hype",
         "new"
       ],
+      "order": 20,
       "def": "Karpathy 的说法：1.0 是手写规则，2.0 是神经网络学规则，3.0 是用自然语言给 LLM 编程。"
     },
     {
@@ -2483,6 +2705,7 @@ const GLOSSARY = {
         "hype",
         "new"
       ],
+      "order": 30,
       "def": "一句话生成可运行应用，是 Vibe Coding 的产品化形态。"
     },
     {
@@ -2495,6 +2718,7 @@ const GLOSSARY = {
         "hype",
         "new"
       ],
+      "order": 40,
       "def": "营销词，2025 年被反复使用。真实含义是\"Agent 从 demo 走进了生产的部分环节\"。"
     },
     {
@@ -2507,6 +2731,7 @@ const GLOSSARY = {
         "hype",
         "new"
       ],
+      "order": 50,
       "def": "单纯堆参数与数据收益递减。分**Data Wall**（数据不够）和 **Power Wall**（电力不够）。"
     },
     {
@@ -2519,6 +2744,7 @@ const GLOSSARY = {
         "cost",
         "hype"
       ],
+      "order": 60,
       "def": "同等能力的推理价格大约每 12 个月降一个数量级（类似\"莱特定律\"）。**做产品规划时必须假设今天的贵，明年会便宜**。"
     },
     {
@@ -2530,6 +2756,7 @@ const GLOSSARY = {
       "tags": [
         "hype"
       ],
+      "order": 70,
       "def": "一句比喻，解释了长上下文与 RAG 的分工。"
     },
     {
@@ -2541,6 +2768,7 @@ const GLOSSARY = {
       "tags": [
         "hype"
       ],
+      "order": 80,
       "def": "企业采购话术，指可被\"雇佣\"来完成流程性工作的 Agent。"
     },
     {
@@ -2553,6 +2781,7 @@ const GLOSSARY = {
         "cost",
         "hype"
       ],
+      "order": 90,
       "def": "围绕训练与推理的基础设施层：算力、调度、框架、引擎。是当下最赚钱的一层。"
     },
     {
@@ -2565,6 +2794,7 @@ const GLOSSARY = {
         "debate",
         "hype"
       ],
+      "order": 100,
       "def": "中国大模型创业公司的旧称（智谱、月之暗面、MiniMax、百川、零一万物、阶跃星辰）。**这个称呼已经过时了**，格局早已分化。"
     },
     {
@@ -2577,6 +2807,7 @@ const GLOSSARY = {
         "debate",
         "hype"
       ],
+      "order": 110,
       "def": "新模型必须比上一个大，成了发布会叙事的一部分，与能力提升不必然相关。"
     },
     {
@@ -2588,6 +2819,7 @@ const GLOSSARY = {
       "tags": [
         "hype"
       ],
+      "order": 120,
       "def": "针对公开榜单做优化，而非提升真实能力。"
     }
   ],

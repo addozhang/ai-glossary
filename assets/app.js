@@ -49,6 +49,42 @@
       return hl(esc(p), qs);
     }).join('');
   }
+  function renderBlocks(text, qs) {
+    var src = String(text || '').replace(/\r\n/g, '\n').trim();
+    if (!src) return '';
+    var lines = src.split('\n'), out = [], i = 0;
+    var isUl = /^\s*[-*]\s+/, isOl = /^\s*\d+\.\s+/;
+    while (i < lines.length) {
+      if (!lines[i].trim()) { i++; continue; }
+      if (/^```/.test(lines[i])) {
+        var code = []; i++;
+        while (i < lines.length && !/^```/.test(lines[i])) code.push(lines[i++]);
+        i++;
+        out.push('<pre><code>' + esc(code.join('\n')) + '</code></pre>');
+        continue;
+      }
+      if (isUl.test(lines[i])) {
+        var ul = [];
+        while (i < lines.length && isUl.test(lines[i]))
+          ul.push('<li>' + rich(lines[i++].replace(isUl, ''), qs) + '</li>');
+        out.push('<ul>' + ul.join('') + '</ul>');
+        continue;
+      }
+      if (isOl.test(lines[i])) {
+        var ol = [];
+        while (i < lines.length && isOl.test(lines[i]))
+          ol.push('<li>' + rich(lines[i++].replace(isOl, ''), qs) + '</li>');
+        out.push('<ol>' + ol.join('') + '</ol>');
+        continue;
+      }
+      var para = [];
+      while (i < lines.length && lines[i].trim() && !isUl.test(lines[i]) && !isOl.test(lines[i]) && !/^```/.test(lines[i]))
+        para.push(lines[i++]);
+      out.push('<p>' + para.map(function (l) { return rich(l, qs); }).join('<br>') + '</p>');
+    }
+    return out.join('');
+  }
+
   function toast(msg) {
     el.toast.textContent = msg; el.toast.classList.add('on');
     clearTimeout(toast._t); toast._t = setTimeout(function () { el.toast.classList.remove('on'); }, 1900);
@@ -110,7 +146,7 @@
         (t.zh ? '<span class="card-zh">' + rich(t.zh, qs) + '</span>' : '') +
         (t.en ? '<span class="card-en">' + rich(t.en, qs) + '</span>' : '') +
       '</div>' +
-      '<p class="card-def">' + rich(t.def, qs) + '</p>' +
+      '<div class="card-def">' + renderBlocks(t.def, qs) + '</div>' +
       '<div class="card-foot">' +
         '<span class="cat-badge" style="--badge:' + c._tone + '">' + esc(c.name) + '</span>' + tags +
       '</div></article>';
