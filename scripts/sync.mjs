@@ -1,15 +1,17 @@
 #!/usr/bin/env node
 /**
- * sync.mjs — 把仓库内的内容编译成站点数据
+ * sync.mjs — 把仓库内的结构化内容编译成站点数据
  *
  * 用法：
  *   npm run sync
  *   node scripts/sync.mjs --check        # 只比对，不写入（CI 用）
  *
- * 输入：
- *   content/terms/<分类>/<id>.md   一条一个文件：frontmatter 存字段，正文存定义
- *   content/glossary.md            站点级文本：导语、辨析、参考链接、使用建议
+ * 输入（全部是结构化的，没有文章骨架）：
+ *   content/terms/<分类>/<id>.md   词条：一条一个文件，frontmatter 存字段，正文存定义
+ *   data/site.json                 站点元信息
  *   data/taxonomy.json             分类与标签的受控词表
+ *   data/confusions.json           易混淆对照
+ *   data/links.json                参考资源
  * 输出：
  *   data/glossary.js               供前端直接 <script> 引入（勿手改）
  *
@@ -23,11 +25,14 @@ import { fileURLToPath } from 'node:url';
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const CHECK_ONLY = process.argv.includes('--check');
 const TERMS_DIR = path.join(ROOT, 'content/terms');
-const SITE_MD = path.join(ROOT, 'content/glossary.md');
-const TAXONOMY = path.join(ROOT, 'data/taxonomy.json');
 const OUT = path.join(ROOT, 'data/glossary.js');
 
 function fail(msg) { console.error('✗ ' + msg); process.exit(1); }
+function readJSON(rel) {
+  const p = path.join(ROOT, rel);
+  try { return JSON.parse(fs.readFileSync(p, 'utf8')); }
+  catch (e) { fail(`${rel} 不是合法 JSON：${e.message}`); }
+}
 
 /* ---------- frontmatter ---------- */
 function unquote(v) {
@@ -62,7 +67,7 @@ function parseFrontmatter(text, where) {
 }
 
 /* ---------- 受控词表 ---------- */
-const tax = JSON.parse(fs.readFileSync(TAXONOMY, 'utf8'));
+const tax = readJSON('data/taxonomy.json');
 const CATS = tax.categories, TAGS = tax.tags;
 const catById = {}, catIdx = {}, tagIds = new Set();
 CATS.forEach((c, i) => { catById[c.id] = c; catIdx[c.id] = i; });
@@ -107,72 +112,47 @@ if (!terms.length) fail('content/terms/ 下没有找到任何词条');
 terms.sort((a, b) =>
   catIdx[a.cat] - catIdx[b.cat] || a.order - b.order || a.term.localeCompare(b.term, 'en'));
 
-/* ---------- 读站点级文本 ---------- */
-const SITE = fs.readFileSync(SITE_MD, 'utf8');
-const { fm: siteFm, body: siteBody } = parseFrontmatter(SITE, 'content/glossary.md');
-if (!siteFm.updated) fail('content/glossary.md 的 frontmatter 缺少 updated: YYYY-MM-DD');
+/* ---------- 站点级结构化数据 ---------- */
+const site = readJSON('data/site.json');
+if (!site.title) fail('data/site.json 缺少 title');
+if (!site.updated) fail('data/site.json 缺少 updated');
 
-const intro = [], leadLines = [], confusions = [], links = [], usageLines = [], notes = [];
-let section = 'intro', linkGroup = '', inComment = false;
-for (const line of siteBody.split('\n')) {
-  if (inComment) { if (line.includes('-->')) inComment = false; continue; }
-  if (/^\s*<!--/.test(line)) { if (!line.includes('-->')) inComment = true; continue; }
-  const h = line.match(/^## (.+)$/);
-  if (h) {
-    const title = h[1].trim();
-    if (title.startsWith('附二')) { section = 'links'; continue; }
-    if (title.startsWith('附：')) { section = 'confusions'; continue; }
-    if (title.startsWith('一条使用建议')) { section = 'usage'; continue; }
-    if (/^〇、/.test(title)) { section = 'lead'; continue; }
-    section = 'note'; notes.push({ title, lines: [] });
-    continue;
+const confusions = readJSON('data/confusions.json');
+if (!Array.isArray(confusions)) fail('data/confusions.json 必须是数组');
+for (const c of confusions) {
+  if (!c.pair || !c.note) fail(`confusions 条目缺少 pair 或 note：${JSON.stringify(c).slice(0, 60)}`);
+  if (c.terms) for (const id of c.terms) {
+    if (!ids.has(id)) fail(`data/confusions.json 里「${c.pair}」引用了不存在的词条 id：${id}`);
   }
-  if (/^---\s*$/.test(line) || !line.trim()) continue;
-  switch (section) {
-    case 'intro':  intro.push(line.trim()); break;
-    case 'lead':   leadLines.push(line.trim()); break;
-    case 'usage':  usageLines.push(line.trim()); break;
-    case 'note':   notes[notes.length - 1].lines.push(line.trim()); break;
-    case 'confusions': {
-      const m = line.match(/^\| \*\*(.*?)\*\* \| (.*?) \|$/);
-      if (m && !m[1].includes('容易混')) confusions.push({ pair: m[1], note: m[2] });
-      break;
-    }
-    case 'links': {
-      const g = line.match(/^\*\*(.+?)\*\*$/);
-      if (g) { linkGroup = g[1]; break; }
-      const m = line.match(/^- \[(.*?)\]\((.*?)\)/);
-      if (m) links.push({ group: linkGroup, name: m[1], url: m[2] });
-      break;
-    }
+}
+
+const links = readJSON('data/links.json');
+if (!Array.isArray(links)) fail('data/links.json 必须是数组');
+for (const g of links) {
+  if (!g.group || !Array.isArray(g.items)) fail('data/links.json 每个分组都需要 group 与 items');
+  for (const it of g.items) {
+    if (!it.name || !/^https?:\/\//.test(it.url)) fail(`参考链接非法：${JSON.stringify(it).slice(0, 60)}`);
   }
 }
 
 /* ---------- 输出 ---------- */
-const fullTitle = typeof siteFm.title === 'string' ? siteFm.title : 'AI 黑话词典：LLM 时代的术语速查表';
-const ti = fullTitle.indexOf('：');
 const data = {
   meta: {
-    title: ti > -1 ? fullTitle.slice(0, ti) : fullTitle,
-    subtitle: ti > -1 ? fullTitle.slice(ti + 1) : 'LLM 时代的术语速查表',
-    description: (intro[0] || '').replace(/\*\*/g, '').slice(0, 120),
-    source: 'https://github.com/addozhang/ai-glossary',
-    license: siteFm.license || 'CC BY 4.0',
-    updated: siteFm.updated,
+    title: site.title,
+    description: site.description || '',
+    source: site.repo || 'https://github.com/addozhang/ai-glossary',
+    license: site.license || 'CC BY 4.0',
+    updated: site.updated,
     count: terms.length,
   },
   categories: CATS,
   tags: TAGS,
-  intro,
-  lead: { title: '先分清那个「推理」', lines: leadLines },
   terms,
   confusions,
   links,
-  usage: { title: '一条使用建议', lines: usageLines },
-  notes,
 };
 
-const banner = `/* 自动生成，请勿直接编辑。\n * 词条源：content/terms/<分类>/<id>.md\n * 站点文本：content/glossary.md\n * 词表：data/taxonomy.json\n * 生成命令：npm run sync\n */\n`;
+const banner = `/* 自动生成，请勿直接编辑。\n * 词条源：content/terms/<分类>/<id>.md\n * 数据源：data/site.json、taxonomy.json、confusions.json、links.json\n * 生成命令：npm run sync\n */\n`;
 const output = banner + 'const GLOSSARY = ' + JSON.stringify(data, null, 2) + ';\n'
   + "if (typeof window !== 'undefined') window.GLOSSARY = GLOSSARY;\n"
   + "if (typeof module !== 'undefined' && module.exports) module.exports = GLOSSARY;\n";
@@ -188,6 +168,7 @@ fs.writeFileSync(OUT, output, 'utf8');
 
 const byCat = {};
 terms.forEach(t => { byCat[t.cat] = (byCat[t.cat] || 0) + 1; });
-console.log(`✓ ${terms.length} 词条 / ${confusions.length} 组辨析 / ${links.length} 条链接`);
+const linkCount = links.reduce((n, g) => n + g.items.length, 0);
+console.log(`✓ ${terms.length} 词条 / ${confusions.length} 组辨析 / ${linkCount} 条链接`);
 console.log('  ' + CATS.map(c => `${c.name} ${byCat[c.id] || 0}`).join(' · '));
 console.log(`  输出：${OUT}`);

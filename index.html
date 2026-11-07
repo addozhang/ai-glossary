@@ -44,7 +44,7 @@
 
 <section class="wrap hero">
   <h2>把黑话翻回人话</h2>
-  <div id="hero-intro"></div>
+  <p id="hero-intro"></p>
   <div class="stat-row">
     <div class="stat"><b id="stat-terms">—</b><span>词条</span></div>
     <div class="stat"><b id="stat-cats">—</b><span>分类</span></div>
@@ -78,7 +78,6 @@
   </aside>
 
   <div class="content" id="content">
-    <div class="lead" id="lead"></div>
     <div class="resultbar">
       <span class="result-count" id="result-count"></span>
       <div class="active-filters" id="active-filters"></div>
@@ -107,7 +106,6 @@
   <section class="section" id="about">
     <h2>关于与更新</h2>
     <p class="section-desc">内容、协议与维护方式。</p>
-    <div class="lead" id="usage" style="border-left-color:var(--tone-4)"></div>
     <div class="about-box">
       <p><strong>内容</strong>：全部词条由作者整理并原创撰写，按十二个知识层级归类。参考项目仅提供链接，未复制任何未授权内容。</p>
       <p><strong>分类与标签</strong>：12 个分类对应知识层级，8 个标签是跨分类的横向维度（核心 / 易混淆 / 工程 / 成本 / 新词 / 营销 / 有争议 / 安全）。两者都是受控词表，不允许随意新增，避免标签泛滥。</p>
@@ -126,6 +124,7 @@
 </footer>
 
 <div id="toast" role="status" aria-live="polite"></div>
+<button id="to-top" type="button" aria-label="回到顶部" title="回到顶部">↑</button>
 
 <script src="data/glossary.js"></script>
 <script src="assets/app.js"></script>

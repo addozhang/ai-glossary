@@ -8,7 +8,7 @@
   if (!D) { document.getElementById('results').textContent = '数据加载失败，请检查 data/glossary.js'; return; }
 
   var CATS = D.categories, TAGS = D.tags, TERMS = D.terms;
-  var catById = {}, tagById = {};
+  var catById = {}, tagById = {}, termById = {};
   CATS.forEach(function (c, i) { catById[c.id] = c; c._tone = toneFor(i); });
   TAGS.forEach(function (t) { tagById[t.id] = t; });
 
@@ -19,7 +19,7 @@
     return 'var(' + (m[i] || '--tone-1') + ')';
   }
 
-  var state = { q: '', cat: '', tags: [], sort: 'cat', term: '' };
+  var state = { q: '', cat: '', tags: [], sort: 'cat', term: '', anchor: '' };
   var $ = function (s) { return document.querySelector(s); };
   var el = {
     q: $('#q'), clear: $('#clear-q'), catList: $('#cat-list'), tagList: $('#tag-list'),
@@ -94,11 +94,14 @@
       .concat(t.tags.map(function (x) { return tagById[x] ? tagById[x].name : ''; }))
       .join(' ').toLowerCase();
   }
-  TERMS.forEach(function (t) { t._h = hay(t); });
+  TERMS.forEach(function (t) { t._h = hay(t); termById[t.id] = t; });
 
   /* ---------- state <-> URL ---------- */
   function readHash() {
-    var p = new URLSearchParams(location.hash.slice(1));
+    var raw = location.hash.slice(1);
+    if (raw && raw.indexOf('=') === -1) { state.anchor = raw; return; }
+    state.anchor = '';
+    var p = new URLSearchParams(raw);
     state.q = p.get('q') || '';
     state.cat = CATS.some(function (c) { return c.id === p.get('cat'); }) ? p.get('cat') : '';
     state.tags = (p.get('tags') || '').split(',').filter(function (x) {
@@ -106,6 +109,10 @@
     });
     state.sort = p.get('sort') === 'az' ? 'az' : 'cat';
     state.term = p.get('term') || '';
+  }
+  function scrollToAnchor() {
+    var node = document.getElementById(state.anchor);
+    if (node) setTimeout(function () { node.scrollIntoView({ block: 'start', behavior: 'instant' }); }, 40);
   }
   function writeHash(replace) {
     var p = new URLSearchParams();
@@ -237,38 +244,22 @@
     $('#stat-tags').textContent = TAGS.length;
     $('#stat-confuse').textContent = D.confusions.length;
     $('#foot-updated').textContent = '最后更新 ' + D.meta.updated + ' · ' + D.meta.license;
-    $('#hero-intro').innerHTML = D.intro.map(function (l) { return '<p>' + rich(l, []) + '</p>'; }).join('') ||
-      '<p>AI / LLM 术语速查，支持全文检索与分类标签筛选。</p>';
-    $('#usage').innerHTML = '<h3>' + esc(D.usage.title) + '</h3>' +
-      D.usage.lines.map(function (l) { return '<p>' + rich(l, []) + '</p>'; }).join('');
-
-    var leadHtml = '<h3>先分清那个「推理」</h3>', inList = false;
-    D.lead.lines.forEach(function (l) {
-      if (l.indexOf('- **') === 0) {
-        if (!inList) { leadHtml += '<ul>'; inList = true; }
-        var m = l.match(/^- \*\*(.*?)\*\* — (.*)$/);
-        leadHtml += m ? '<li>' + rich('**' + m[1] + '** — ' + m[2], []) + '</li>'
-                      : '<li>' + rich(l.slice(2), []) + '</li>';
-      } else {
-        if (inList) { leadHtml += '</ul>'; inList = false; }
-        leadHtml += '<p>' + rich(l, []) + '</p>';
-      }
-    });
-    if (inList) leadHtml += '</ul>';
-    $('#lead').innerHTML = leadHtml;
+    $('#hero-intro').textContent = D.meta.description || '';
 
     $('#confuse-grid').innerHTML = D.confusions.map(function (c) {
-      return '<div class="confuse"><h4>' + esc(c.pair) + '</h4><p>' + rich(c.note, []) + '</p></div>';
+      var links = (c.terms || []).map(function (id) {
+        var t = termById[id];
+        return t ? '<a class="confuse-link" href="#term=' + encodeURIComponent(id) + '">' + esc(t.term) + '</a>' : '';
+      }).join('');
+      return '<div class="confuse"><h4>' + esc(c.pair) + '</h4><p>' + rich(c.note, []) + '</p>' +
+        (links ? '<div class="confuse-links">' + links + '</div>' : '') + '</div>';
     }).join('');
 
-    var groups = [], key = {};
-    D.links.forEach(function (l) {
-      if (!key[l.group]) { key[l.group] = []; groups.push({ name: l.group, items: key[l.group] }); }
-      key[l.group].push(l);
-    });
-    $('#link-groups').innerHTML = groups.map(function (g) {
-      return '<div class="link-group"><h4>' + esc(g.name) + '</h4><ul>' + g.items.map(function (l) {
-        return '<li><a href="' + esc(l.url) + '" target="_blank" rel="noopener noreferrer">' + esc(l.name) + '</a></li>';
+    $('#link-groups').innerHTML = D.links.map(function (g) {
+      return '<div class="link-group"><h4>' + esc(g.group) + '</h4><ul>' + g.items.map(function (it) {
+        return '<li><div class="link-head"><a href="' + esc(it.url) + '" target="_blank" rel="noopener noreferrer">' +
+          esc(it.name) + '</a>' + (it.meta ? '<span class="link-meta">' + esc(it.meta) + '</span>' : '') + '</div>' +
+          (it.note ? '<p class="link-note">' + rich(it.note, []) + '</p>' : '') + '</li>';
       }).join('') + '</ul></div>';
     }).join('');
   }
@@ -326,11 +317,23 @@
     document.documentElement.dataset.theme = next;
     try { localStorage.setItem('ag-theme', next); } catch (err) {}
   });
-  window.addEventListener('hashchange', function () { readHash(); el.q.value = state.q; render(); });
-  window.addEventListener('popstate', function () { readHash(); el.q.value = state.q; render(); });
+  window.addEventListener('hashchange', function () {
+    readHash();
+    if (state.anchor) { scrollToAnchor(); return; }
+    el.q.value = state.q; render();
+  });
+  window.addEventListener('popstate', function () {
+    readHash();
+    if (state.anchor) { scrollToAnchor(); return; }
+    el.q.value = state.q; render();
+  });
   window.addEventListener('scroll', function () {
     $('#searchbar').classList.toggle('stuck', window.scrollY > 4);
+    $('#to-top').classList.toggle('on', window.scrollY > 900);
   }, { passive: true });
+  $('#to-top').addEventListener('click', function () {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
 
   if (!/Mac|iPhone|iPad/.test(navigator.platform)) $('#kbd-mod').textContent = 'Ctrl';
 
@@ -346,6 +349,8 @@
     }
   }
   render();
+
+  if (state.anchor) scrollToAnchor();
 
   if (state.term) {
     var node = document.getElementById('t-' + state.term);

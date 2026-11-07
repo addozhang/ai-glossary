@@ -1,0 +1,98 @@
+[
+  {
+    "group": "最接近的",
+    "items": [
+      {
+        "name": "mattpocock/dictionary-of-ai-coding",
+        "url": "https://github.com/mattpocock/dictionary-of-ai-coding",
+        "meta": "约 5.3k star · 约 62 条",
+        "note": "前 Vercel 工程师 Matt Pocock 做的 AI 编程术语词典。每条给机制解释、常见误用和真实对话示例，视角是工程师日常调试而不是学术定义。仓库没有 LICENSE，可以读，不能搬运。"
+      }
+    ]
+  },
+  {
+    "group": "资料清单",
+    "items": [
+      {
+        "name": "Hannibal046/Awesome-LLM",
+        "url": "https://github.com/Hannibal046/Awesome-LLM",
+        "meta": "约 26k star",
+        "note": "按里程碑论文排序的大合集，覆盖论文、框架、部署工具与课程。查某个概念出自哪篇论文最快。"
+      },
+      {
+        "name": "mlabonne/llm-course",
+        "url": "https://github.com/mlabonne/llm-course",
+        "meta": "19 个主题 · 配 Colab",
+        "note": "LLM 学习路线图，分 Fundamentals / Scientist / Engineer 三段。没有独立术语表，但章节名本身就是一份术语骨架。"
+      }
+    ]
+  },
+  {
+    "group": "课程与教材",
+    "items": [
+      {
+        "name": "microsoft/generative-ai-for-beginners",
+        "url": "https://github.com/microsoft/generative-ai-for-beginners",
+        "meta": "21 课 · 50+ 语言",
+        "note": "根目录有 glossary.md，且提供含简体中文在内的官方翻译。想知道某个术语的标准译法，可以拿它的中文版对照。"
+      },
+      {
+        "name": "datawhalechina/happy-llm",
+        "url": "https://github.com/datawhalechina/happy-llm",
+        "meta": "8 章 · 配代码",
+        "note": "《从零开始构建大模型》，从 Transformer 一路讲到 Agentic RL（GRPO / Search-R1 / ReTool）。术语量不如面试笔记，但每个都讲透。"
+      }
+    ]
+  },
+  {
+    "group": "中文项目",
+    "items": [
+      {
+        "name": "wdndev/llm_interview_note",
+        "url": "https://github.com/wdndev/llm_interview_note",
+        "meta": "覆盖最广的中文单仓",
+        "note": "大模型面试笔记，术语按面试题组织。读起来像「每个概念会被怎么问」，适合准备面试或做内部分享。"
+      }
+    ]
+  },
+  {
+    "group": "纯术语表",
+    "items": [
+      {
+        "name": "freetoolsarebest/llm-glossary",
+        "url": "https://github.com/freetoolsarebest/llm-glossary",
+        "meta": "约 17 star · 停在 2024",
+        "note": "按 general / training / model-compression / RAG / benchmarking 分文件的纯术语表，结构最接近这份词典。"
+      },
+      {
+        "name": "odisha-ml/AI-Glossary",
+        "url": "https://github.com/odisha-ml/AI-Glossary",
+        "meta": "约 5 star",
+        "note": "每条术语附对应论文链接，这是它唯一但很实在的价值。"
+      }
+    ]
+  },
+  {
+    "group": "权威来源",
+    "items": [
+      {
+        "name": "Hugging Face NLP Course",
+        "url": "https://huggingface.co/learn/nlp-course",
+        "meta": "各章术语框",
+        "note": "查概念在工程语境下的标准含义。"
+      },
+      {
+        "name": "Google Machine Learning Glossary",
+        "url": "https://developers.google.com/machine-learning/glossary",
+        "meta": "官方定义",
+        "note": "机器学习基础概念的权威解释。"
+      },
+      {
+        "name": "Wikipedia: Glossary of artificial intelligence",
+        "url": "https://en.wikipedia.org/wiki/Glossary_of_artificial_intelligence",
+        "meta": "公认定义兜底",
+        "note": "覆盖面广，适合快速确认一个词有没有公认定义。"
+      }
+    ]
+  }
+]

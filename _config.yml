@@ -6,7 +6,10 @@ description: LLM 时代的术语速查表
 exclude:
   - content
   - scripts
+  - data/site.json
   - data/taxonomy.json
+  - data/confusions.json
+  - data/links.json
   - node_modules
   - README.md
   - LICENSE

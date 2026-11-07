@@ -2,8 +2,8 @@
 /**
  * watch.mjs — 本地写作时的自动编译
  *
- * 监听 content/terms（递归）、content/glossary.md、data/taxonomy.json，
- * 保存即重新生成并校验。配合 npm run serve 使用时，刷新浏览器即可看到改动。
+ * 监听 content/terms（递归）与 data/ 下的内容文件，保存即重新生成并校验。
+ * 配合 npm run serve 使用时，刷新浏览器即可看到改动。
  */
 import fs from 'node:fs';
 import path from 'node:path';
@@ -31,8 +31,10 @@ function onChange() {
 
 const targets = [
   ['content/terms', { recursive: true }],
-  ['content/glossary.md', {}],
+  ['data/site.json', {}],
   ['data/taxonomy.json', {}],
+  ['data/confusions.json', {}],
+  ['data/links.json', {}],
 ];
 let count = 0;
 for (const [rel, opts] of targets) {

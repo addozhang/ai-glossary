@@ -1,14 +1,12 @@
 /* 自动生成，请勿直接编辑。
  * 词条源：content/terms/<分类>/<id>.md
- * 站点文本：content/glossary.md
- * 词表：data/taxonomy.json
+ * 数据源：data/site.json、taxonomy.json、confusions.json、links.json
  * 生成命令：npm run sync
  */
 const GLOSSARY = {
   "meta": {
     "title": "AI 黑话词典",
-    "subtitle": "LLM 时代的术语速查表",
-    "description": "每个行业都会长出自己的黑话。AI 这一轮的特殊之处在于：它的黑话不是从实践中慢慢沉淀的，而是先由论文造词、再由产品营销放大、最后被社交媒体压缩成标签。结果是同一个东西有三个名字，不同东西共用一个名字。",
+    "description": "两百余条 AI 与 LLM 术语，按十二个知识层级归类。可按分类与标签筛选，也可按「易混淆」「新词」「成本」这类横向维度找。",
     "source": "https://github.com/addozhang/ai-glossary",
     "license": "CC BY 4.0",
     "updated": "2026-11-07",
@@ -142,18 +140,6 @@ const GLOSSARY = {
       "desc": "涉及攻击面、风险或对齐"
     }
   ],
-  "intro": [
-    "每个行业都会长出自己的黑话。AI 这一轮的特殊之处在于：它的黑话不是从实践中慢慢沉淀的，而是**先由论文造词、再由产品营销放大、最后被社交媒体压缩成标签**。结果是同一个东西有三个名字，不同东西共用一个名字。"
-  ],
-  "lead": {
-    "title": "先分清那个「推理」",
-    "lines": [
-      "在中文里，\"推理\"对应两个完全不同的英文词，用错会让整句话失去意义：",
-      "- **Inference（推理/推断）** — 模型跑一次前向计算、生成输出的过程。是动词性的工程词，对应\"推理成本\"\"推理芯片\"\"推理延迟\"。",
-      "- **Reasoning（推理/思考）** — 模型做多步逻辑推导的能力或行为。是能力词，对应\"推理模型\"\"推理链\"\"推理能力\"。",
-      "\"推理模型推理一次要花多少推理成本\"——这句话里三个\"推理\"分别是 Reasoning、Inference、Inference。中文没有区分，英文有。"
-    ]
-  },
   "terms": [
     {
       "id": "llm",
@@ -2826,110 +2812,181 @@ const GLOSSARY = {
   "confusions": [
     {
       "pair": "Inference vs Reasoning",
-      "note": "前者是\"跑计算\"，后者是\"做思考\""
+      "terms": [
+        "inference",
+        "reasoning"
+      ],
+      "note": "前者是\"跑计算\"，后者是\"做思考\"。中文都叫推理，英文分得很清。"
     },
     {
       "pair": "Fine-tuning vs RAG",
-      "note": "微调改**行为与风格**，RAG 补**知识与事实**。想让模型记住新知识优先 RAG"
+      "terms": [
+        "fine-tuning",
+        "rag"
+      ],
+      "note": "微调改**行为与风格**，RAG 补**知识与事实**。想让模型记住新知识，优先 RAG。"
     },
     {
       "pair": "RAG vs 长上下文",
-      "note": "长上下文是\"看得多\"，RAG 是\"挑得准\"。数据大时 RAG 更省，全局理解时上下文更强"
+      "terms": [
+        "rag",
+        "context-window"
+      ],
+      "note": "长上下文是\"看得多\"，RAG 是\"挑得准\"。数据量大时 RAG 更省，需要全局理解时上下文更强。"
     },
     {
       "pair": "Prompt Engineering vs Context Engineering",
-      "note": "前者优化\"怎么说\"，后者决定\"给什么看\""
+      "terms": [
+        "prompt-engineering",
+        "context-engineering"
+      ],
+      "note": "前者优化\"怎么说\"，后者决定\"给什么看\"。"
     },
     {
       "pair": "Agent vs Workflow",
-      "note": "路径谁定：人定 = workflow，模型定 = agent"
+      "terms": [
+        "agent",
+        "workflow-vs-agent"
+      ],
+      "note": "路径谁定：人定 = workflow，模型现场决定 = agent。能写死流程就别上 agent。"
     },
     {
       "pair": "Guardrails vs Alignment",
-      "note": "护栏在运行时拦截，对齐在训练时塑造"
+      "terms": [
+        "guardrails",
+        "alignment"
+      ],
+      "note": "护栏在运行时拦截，对齐在训练时塑造。"
     },
     {
       "pair": "Jailbreak vs Prompt Injection",
-      "note": "越狱针对模型规则，注入针对应用逻辑"
+      "terms": [
+        "jailbreak",
+        "prompt-injection"
+      ],
+      "note": "越狱针对模型规则，注入针对应用逻辑。"
     },
     {
       "pair": "Open-weight vs Open-source",
-      "note": "前者只给权重，后者给全套（含数据与代码）"
+      "terms": [
+        "open-weight-vs-open-source"
+      ],
+      "note": "前者只给权重，后者给全套（含数据与训练代码）。"
     },
     {
       "pair": "TTFT vs TPOT",
-      "note": "首字快但吐字慢，体验依然差；两个指标必须一起看"
+      "terms": [
+        "ttft",
+        "tpot-itl"
+      ],
+      "note": "首字快但吐字慢，体验依然差。这两个指标必须一起看。"
     },
     {
-      "pair": "Hallucination vs 错误",
-      "note": "幻觉是\"自信地编\"，普通错误是\"算错了\"。修法完全不同：前者靠 grounding，后者靠更强的推理"
+      "pair": "Hallucination vs 普通错误",
+      "terms": [
+        "hallucination"
+      ],
+      "note": "幻觉是\"自信地编\"，普通错误是\"算错了\"。修法不同：前者靠 grounding，后者靠更强的推理。"
     }
   ],
   "links": [
     {
-      "group": "最接近的：以黑话祛魅为目标",
-      "name": "mattpocock/dictionary-of-ai-coding",
-      "url": "https://github.com/mattpocock/dictionary-of-ai-coding"
+      "group": "最接近的",
+      "items": [
+        {
+          "name": "mattpocock/dictionary-of-ai-coding",
+          "url": "https://github.com/mattpocock/dictionary-of-ai-coding",
+          "meta": "约 5.3k star · 约 62 条",
+          "note": "前 Vercel 工程师 Matt Pocock 做的 AI 编程术语词典。每条给机制解释、常见误用和真实对话示例，视角是工程师日常调试而不是学术定义。仓库没有 LICENSE，可以读，不能搬运。"
+        }
+      ]
     },
     {
-      "group": "大而全的资料清单（术语藏在里面，不是词典）",
-      "name": "Hannibal046/Awesome-LLM",
-      "url": "https://github.com/Hannibal046/Awesome-LLM"
+      "group": "资料清单",
+      "items": [
+        {
+          "name": "Hannibal046/Awesome-LLM",
+          "url": "https://github.com/Hannibal046/Awesome-LLM",
+          "meta": "约 26k star",
+          "note": "按里程碑论文排序的大合集，覆盖论文、框架、部署工具与课程。查某个概念出自哪篇论文最快。"
+        },
+        {
+          "name": "mlabonne/llm-course",
+          "url": "https://github.com/mlabonne/llm-course",
+          "meta": "19 个主题 · 配 Colab",
+          "note": "LLM 学习路线图，分 Fundamentals / Scientist / Engineer 三段。没有独立术语表，但章节名本身就是一份术语骨架。"
+        }
+      ]
     },
     {
-      "group": "大而全的资料清单（术语藏在里面，不是词典）",
-      "name": "mlabonne/llm-course",
-      "url": "https://github.com/mlabonne/llm-course"
+      "group": "课程与教材",
+      "items": [
+        {
+          "name": "microsoft/generative-ai-for-beginners",
+          "url": "https://github.com/microsoft/generative-ai-for-beginners",
+          "meta": "21 课 · 50+ 语言",
+          "note": "根目录有 glossary.md，且提供含简体中文在内的官方翻译。想知道某个术语的标准译法，可以拿它的中文版对照。"
+        },
+        {
+          "name": "datawhalechina/happy-llm",
+          "url": "https://github.com/datawhalechina/happy-llm",
+          "meta": "8 章 · 配代码",
+          "note": "《从零开始构建大模型》，从 Transformer 一路讲到 Agentic RL（GRPO / Search-R1 / ReTool）。术语量不如面试笔记，但每个都讲透。"
+        }
+      ]
     },
     {
-      "group": "课程类，自带 glossary",
-      "name": "microsoft/generative-ai-for-beginners",
-      "url": "https://github.com/microsoft/generative-ai-for-beginners"
+      "group": "中文项目",
+      "items": [
+        {
+          "name": "wdndev/llm_interview_note",
+          "url": "https://github.com/wdndev/llm_interview_note",
+          "meta": "覆盖最广的中文单仓",
+          "note": "大模型面试笔记，术语按面试题组织。读起来像「每个概念会被怎么问」，适合准备面试或做内部分享。"
+        }
+      ]
     },
     {
-      "group": "中文语境",
-      "name": "wdndev/llm_interview_note",
-      "url": "https://github.com/wdndev/llm_interview_note"
+      "group": "纯术语表",
+      "items": [
+        {
+          "name": "freetoolsarebest/llm-glossary",
+          "url": "https://github.com/freetoolsarebest/llm-glossary",
+          "meta": "约 17 star · 停在 2024",
+          "note": "按 general / training / model-compression / RAG / benchmarking 分文件的纯术语表，结构最接近这份词典。"
+        },
+        {
+          "name": "odisha-ml/AI-Glossary",
+          "url": "https://github.com/odisha-ml/AI-Glossary",
+          "meta": "约 5 star",
+          "note": "每条术语附对应论文链接，这是它唯一但很实在的价值。"
+        }
+      ]
     },
     {
-      "group": "中文语境",
-      "name": "datawhalechina/happy-llm",
-      "url": "https://github.com/datawhalechina/happy-llm"
-    },
-    {
-      "group": "小但专门做术语表",
-      "name": "freetoolsarebest/llm-glossary",
-      "url": "https://github.com/freetoolsarebest/llm-glossary"
-    },
-    {
-      "group": "小但专门做术语表",
-      "name": "odisha-ml/AI-Glossary",
-      "url": "https://github.com/odisha-ml/AI-Glossary"
-    },
-    {
-      "group": "非 GitHub 的权威兜底",
-      "name": "Hugging Face NLP Course",
-      "url": "https://huggingface.co/learn/nlp-course"
-    },
-    {
-      "group": "非 GitHub 的权威兜底",
-      "name": "Google Machine Learning Glossary",
-      "url": "https://developers.google.com/machine-learning/glossary"
-    },
-    {
-      "group": "非 GitHub 的权威兜底",
-      "name": "Wikipedia: Glossary of artificial intelligence",
-      "url": "https://en.wikipedia.org/wiki/Glossary_of_artificial_intelligence"
+      "group": "权威来源",
+      "items": [
+        {
+          "name": "Hugging Face NLP Course",
+          "url": "https://huggingface.co/learn/nlp-course",
+          "meta": "各章术语框",
+          "note": "查概念在工程语境下的标准含义。"
+        },
+        {
+          "name": "Google Machine Learning Glossary",
+          "url": "https://developers.google.com/machine-learning/glossary",
+          "meta": "官方定义",
+          "note": "机器学习基础概念的权威解释。"
+        },
+        {
+          "name": "Wikipedia: Glossary of artificial intelligence",
+          "url": "https://en.wikipedia.org/wiki/Glossary_of_artificial_intelligence",
+          "meta": "公认定义兜底",
+          "note": "覆盖面广，适合快速确认一个词有没有公认定义。"
+        }
+      ]
     }
-  ],
-  "usage": {
-    "title": "一条使用建议",
-    "lines": [
-      "黑话的价值在于**降低沟通成本**，滥用时则变成**挡箭牌**。判断一个词是不是在装神弄鬼，有个简单测试：**让对方用一句不含这个行业术语的话，把这件事讲给我听。** 讲得出来，那是术语；讲不出来，那是暗号。",
-      "同理，写文档和做分享时，第一次出现术语就顺手给一句解释——这份词典本身，就是为这个习惯准备的。"
-    ]
-  },
-  "notes": []
+  ]
 };
 if (typeof window !== 'undefined') window.GLOSSARY = GLOSSARY;
 if (typeof module !== 'undefined' && module.exports) module.exports = GLOSSARY;

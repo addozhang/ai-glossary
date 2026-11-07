@@ -1,0 +1,52 @@
+[
+  {
+    "pair": "Inference vs Reasoning",
+    "terms": ["inference", "reasoning"],
+    "note": "前者是\"跑计算\"，后者是\"做思考\"。中文都叫推理，英文分得很清。"
+  },
+  {
+    "pair": "Fine-tuning vs RAG",
+    "terms": ["fine-tuning", "rag"],
+    "note": "微调改**行为与风格**，RAG 补**知识与事实**。想让模型记住新知识，优先 RAG。"
+  },
+  {
+    "pair": "RAG vs 长上下文",
+    "terms": ["rag", "context-window"],
+    "note": "长上下文是\"看得多\"，RAG 是\"挑得准\"。数据量大时 RAG 更省，需要全局理解时上下文更强。"
+  },
+  {
+    "pair": "Prompt Engineering vs Context Engineering",
+    "terms": ["prompt-engineering", "context-engineering"],
+    "note": "前者优化\"怎么说\"，后者决定\"给什么看\"。"
+  },
+  {
+    "pair": "Agent vs Workflow",
+    "terms": ["agent", "workflow-vs-agent"],
+    "note": "路径谁定：人定 = workflow，模型现场决定 = agent。能写死流程就别上 agent。"
+  },
+  {
+    "pair": "Guardrails vs Alignment",
+    "terms": ["guardrails", "alignment"],
+    "note": "护栏在运行时拦截，对齐在训练时塑造。"
+  },
+  {
+    "pair": "Jailbreak vs Prompt Injection",
+    "terms": ["jailbreak", "prompt-injection"],
+    "note": "越狱针对模型规则，注入针对应用逻辑。"
+  },
+  {
+    "pair": "Open-weight vs Open-source",
+    "terms": ["open-weight-vs-open-source"],
+    "note": "前者只给权重，后者给全套（含数据与训练代码）。"
+  },
+  {
+    "pair": "TTFT vs TPOT",
+    "terms": ["ttft", "tpot-itl"],
+    "note": "首字快但吐字慢，体验依然差。这两个指标必须一起看。"
+  },
+  {
+    "pair": "Hallucination vs 普通错误",
+    "terms": ["hallucination"],
+    "note": "幻觉是\"自信地编\"，普通错误是\"算错了\"。修法不同：前者靠 grounding，后者靠更强的推理。"
+  }
+]
