@@ -200,7 +200,11 @@
     $('#stat-cats').textContent = CATS.length;
     $('#stat-tags').textContent = TAGS.length;
     $('#stat-confuse').textContent = D.confusions.length;
-    $('#foot-updated').textContent = '最后更新 ' + D.meta.updated + ' · CC BY 4.0';
+    $('#foot-updated').textContent = '最后更新 ' + D.meta.updated + ' · ' + D.meta.license;
+    $('#hero-intro').innerHTML = D.intro.map(function (l) { return '<p>' + rich(l, []) + '</p>'; }).join('') ||
+      '<p>AI / LLM 术语速查，支持全文检索与分类标签筛选。</p>';
+    $('#usage').innerHTML = '<h3>' + esc(D.usage.title) + '</h3>' +
+      D.usage.lines.map(function (l) { return '<p>' + rich(l, []) + '</p>'; }).join('');
 
     var leadHtml = '<h3>先分清那个「推理」</h3>', inList = false;
     D.lead.lines.forEach(function (l) {

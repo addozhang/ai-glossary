@@ -1,0 +1,26 @@
+{
+  "categories": [
+    { "id": "architecture", "section": "一",   "name": "模型与架构",     "en": "Architecture",           "desc": "模型本体：参数、注意力、位置编码、稀疏结构" },
+    { "id": "training",     "section": "二",   "name": "训练与对齐",     "en": "Training & Alignment",   "desc": "怎么把模型训出来、怎么让它听话" },
+    { "id": "reasoning",    "section": "三",   "name": "推理与生成",     "en": "Reasoning & Decoding",   "desc": "从思考链到采样策略" },
+    { "id": "prompting",    "section": "四",   "name": "提示与上下文",   "en": "Prompt & Context",       "desc": "决定什么信息进入上下文窗口" },
+    { "id": "rag",          "section": "五",   "name": "检索与知识",     "en": "Retrieval & RAG",        "desc": "让回答绑定到外部事实" },
+    { "id": "agent",        "section": "六",   "name": "Agent 与工具",   "en": "Agents & Tools",         "desc": "让模型能规划、调用、迭代" },
+    { "id": "evaluation",   "section": "七",   "name": "评测与基准",     "en": "Evaluation",             "desc": "怎么判断「真的更好」" },
+    { "id": "serving",      "section": "八",   "name": "部署与推理工程", "en": "Serving & Infra",        "desc": "吞吐、延迟、显存、成本" },
+    { "id": "multimodal",   "section": "九",   "name": "多模态与生成",   "en": "Multimodal",             "desc": "图像、语音、视频、世界模型" },
+    { "id": "safety",       "section": "十",   "name": "安全与伦理",     "en": "Safety & Ethics",        "desc": "攻击面、对齐、可解释性" },
+    { "id": "ecosystem",    "section": "十一", "name": "生态与产品",     "en": "Ecosystem",              "desc": "框架、平台、工程组织" },
+    { "id": "business",     "section": "十二", "name": "行业叙事",       "en": "Narratives",             "desc": "营销词、造词、行业黑话" }
+  ],
+  "tags": [
+    { "id": "core",    "name": "核心",   "desc": "理解其它词条的地基" },
+    { "id": "pitfall", "name": "易混淆", "desc": "名称相近但含义不同，或常被误用" },
+    { "id": "eng",     "name": "工程",   "desc": "落地时会真实碰到" },
+    { "id": "cost",    "name": "成本",   "desc": "直接影响钱、显存或延迟" },
+    { "id": "new",     "name": "新词",   "desc": "2024 年后出现或流行" },
+    { "id": "hype",    "name": "营销",   "desc": "来自发布会或社媒的叙事词" },
+    { "id": "debate",  "name": "有争议", "desc": "定义或有效性存在争论" },
+    { "id": "sec",     "name": "安全",   "desc": "涉及攻击面、风险或对齐" }
+  ]
+}

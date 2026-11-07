@@ -1,12 +1,13 @@
-/* 本文件由 scripts/sync.mjs 自动生成，请勿直接编辑。
- * 修改词条请编辑 Markdown 源文件后重新运行 node scripts/sync.mjs
- * 生成时间：2026-11-07T05:57:24.772Z
+/* 自动生成，请勿直接编辑。
+ * 内容源：content/glossary.md
+ * 词表：data/taxonomy.json
+ * 生成命令：npm run sync
  */
 const GLOSSARY = {
   "meta": {
     "title": "AI 黑话词典",
     "subtitle": "LLM 时代的术语速查表",
-    "description": "把 AI / LLM 圈的黑话按十二条脉络整理成可查的词典：从 Transformer 到 Agent，从幻觉到 Vibe Coding。",
+    "description": "每个行业都会长出自己的黑话。AI 这一轮的特殊之处在于：它的黑话不是从实践中慢慢沉淀的，而是先由论文造词、再由产品营销放大、最后被社交媒体压缩成标签。结果是同一个东西有三个名字，不同东西共用一个名字。",
     "source": "https://github.com/addozhang/ai-glossary",
     "license": "CC BY 4.0",
     "updated": "2026-11-07",
@@ -15,72 +16,84 @@ const GLOSSARY = {
   "categories": [
     {
       "id": "architecture",
+      "section": "一",
       "name": "模型与架构",
       "en": "Architecture",
       "desc": "模型本体：参数、注意力、位置编码、稀疏结构"
     },
     {
       "id": "training",
+      "section": "二",
       "name": "训练与对齐",
       "en": "Training & Alignment",
       "desc": "怎么把模型训出来、怎么让它听话"
     },
     {
       "id": "reasoning",
+      "section": "三",
       "name": "推理与生成",
       "en": "Reasoning & Decoding",
       "desc": "从思考链到采样策略"
     },
     {
       "id": "prompting",
+      "section": "四",
       "name": "提示与上下文",
       "en": "Prompt & Context",
       "desc": "决定什么信息进入上下文窗口"
     },
     {
       "id": "rag",
+      "section": "五",
       "name": "检索与知识",
       "en": "Retrieval & RAG",
       "desc": "让回答绑定到外部事实"
     },
     {
       "id": "agent",
+      "section": "六",
       "name": "Agent 与工具",
       "en": "Agents & Tools",
       "desc": "让模型能规划、调用、迭代"
     },
     {
       "id": "evaluation",
+      "section": "七",
       "name": "评测与基准",
       "en": "Evaluation",
-      "desc": "怎么判断\"真的更好\""
+      "desc": "怎么判断「真的更好」"
     },
     {
       "id": "serving",
+      "section": "八",
       "name": "部署与推理工程",
       "en": "Serving & Infra",
       "desc": "吞吐、延迟、显存、成本"
     },
     {
       "id": "multimodal",
+      "section": "九",
       "name": "多模态与生成",
       "en": "Multimodal",
       "desc": "图像、语音、视频、世界模型"
     },
     {
       "id": "safety",
+      "section": "十",
       "name": "安全与伦理",
       "en": "Safety & Ethics",
       "desc": "攻击面、对齐、可解释性"
     },
     {
       "id": "ecosystem",
+      "section": "十一",
       "name": "生态与产品",
       "en": "Ecosystem",
       "desc": "框架、平台、工程组织"
     },
     {
       "id": "business",
+      "section": "十二",
       "name": "行业叙事",
       "en": "Narratives",
       "desc": "营销词、造词、行业黑话"
@@ -127,6 +140,9 @@ const GLOSSARY = {
       "name": "安全",
       "desc": "涉及攻击面、风险或对齐"
     }
+  ],
+  "intro": [
+    "每个行业都会长出自己的黑话。AI 这一轮的特殊之处在于：它的黑话不是从实践中慢慢沉淀的，而是**先由论文造词、再由产品营销放大、最后被社交媒体压缩成标签**。结果是同一个东西有三个名字，不同东西共用一个名字。"
   ],
   "lead": {
     "title": "先分清那个「推理」",
@@ -2673,7 +2689,15 @@ const GLOSSARY = {
       "name": "Wikipedia: Glossary of artificial intelligence",
       "url": "https://en.wikipedia.org/wiki/Glossary_of_artificial_intelligence"
     }
-  ]
+  ],
+  "usage": {
+    "title": "一条使用建议",
+    "lines": [
+      "黑话的价值在于**降低沟通成本**，滥用时则变成**挡箭牌**。判断一个词是不是在装神弄鬼，有个简单测试：**让对方用一句不含这个行业术语的话，把这件事讲给我听。** 讲得出来，那是术语；讲不出来，那是暗号。",
+      "同理，写文档和做分享时，第一次出现术语就顺手给一句解释——这份词典本身，就是为这个习惯准备的。"
+    ]
+  },
+  "notes": []
 };
 if (typeof window !== 'undefined') window.GLOSSARY = GLOSSARY;
 if (typeof module !== 'undefined' && module.exports) module.exports = GLOSSARY;

@@ -1,8 +1,8 @@
 # AI 黑话词典
 
-**在线站点**：https://addozhang.github.io/ai-glossary/
+**在线站点**：https://atbug.com/ai-glossary/
 
-LLM 时代术语速查表。纯静态、零依赖、无构建步骤，支持全文检索、分类筛选、标签筛选、深链接和深浅色主题。
+LLM 时代术语速查表。纯静态、零依赖、无构建工具链，**内容与词表全部存放在本仓库内**，不依赖 Obsidian、不依赖任何本机路径。
 
 ## 特性
 
@@ -10,99 +10,78 @@ LLM 时代术语速查表。纯静态、零依赖、无构建步骤，支持全�
 |---|---|
 | 全文检索 | 同时匹配英文术语、英文全称、中文名、定义正文、分类名、标签名；空格分隔多个关键词取交集；结果高亮 |
 | 分类筛选 | 12 个按知识层级划分的分类，侧栏实时显示每个分类在当前条件下的命中数 |
-| 标签筛选 | 8 个跨分类的横向标签，多选取交集；受控词表，不允许随意新增 |
+| 标签筛选 | 8 个跨分类的横向标签，多选取交集；受控词表，写错会在编译时报错 |
 | 深链接 | 每条卡片右上角的 `#` 复制独立链接；搜索与筛选状态写进 URL hash，可分享、可前进后退 |
-| 键盘 | `⌘K` / `Ctrl+K` 聚焦搜索，`Esc` 清空，输入框内直接打字即筛 |
-| 主题 | 跟随系统偏好，可手动切换并记住选择；也可用 `?theme=light` / `?theme=dark` 强制指定 |
+| 键盘 | `⌘K` / `Ctrl+K` 聚焦搜索，`Esc` 清空 |
+| 主题 | 跟随系统偏好，可手动切换并记住；也可用 `?theme=light` / `?theme=dark` 强制指定 |
 | 部署 | GitHub Pages 直接从 `main` 根目录提供，push 即生效，无需 Actions 构建 |
 
-隐私：无 CDN、无 Cookie、无追踪脚本、无第三方字体，可离线打开（`data/glossary.js` 用普通 `<script>` 引入，不受 `file://` 的 CORS 限制）。
+隐私：无 CDN、无 Cookie、无追踪脚本、无第三方字体，可离线打开。
 
-## 目录结构
+## 内容在哪里
+
+只有三个文件需要关心：
 
 ```
-index.html                 页面骨架
-assets/style.css           样式（含深浅色变量）
-assets/app.js              筛选 / 渲染 / 交互，零依赖
+content/glossary.md     ← 唯一内容源：词条、辨析、参考链接、正文散文
+data/taxonomy.json      ← 受控词表：12 个分类 + 8 个标签的定义
+data/glossary.js        ← 自动生成，前端直接读取（勿手改）
+```
+
+`content/glossary.md` 是普通 Markdown，用任何编辑器都能写。`npm run sync` 把它编译成 `data/glossary.js`——编译只是把 Markdown 转成 JS 对象，好让浏览器不依赖任何 Markdown 解析库就能渲染。
+
+站点代码本身在 `index.html`、`assets/`、`scripts/`。
+
+### 目录结构
+
+```
+content/glossary.md          内容源（写这里）
+data/taxonomy.json           分类与标签受控词表
+data/glossary.js             生成物
+index.html                   页面骨架
+assets/style.css             样式
+assets/app.js                筛选 / 渲染 / 交互
 assets/favicon.svg
-data/glossary.js           ← 站点唯一数据源（自动生成，勿手改）
-data/tag-overrides.json    ← 手工标签覆盖（唯一需要手改的数据文件）
-scripts/sync.mjs           从 Markdown 笔记生成 data/glossary.js
-scripts/validate.mjs       数据合规校验
-.github/workflows/ci.yml   push / PR 时自动跑校验
+scripts/sync.mjs             编译：Markdown → JS
+scripts/validate.mjs         合规校验
+scripts/watch.mjs            本地写作时自动编译
+.github/workflows/ci.yml     push / PR 时自动校验
 ```
 
-## 怎么更新
+## 怎么写
 
-**权威数据源是 Obsidian 笔记库里的 Markdown 源文件**（默认路径写在 `scripts/sync.mjs` 顶部）：
+### 词条
 
+一行一条，放在对应分类的 `## ` 章节下：
+
+```markdown
+- **RAG（Retrieval-Augmented Generation，检索增强生成）** — 先从外部知识库检索相关片段，再把片段拼进上下文让模型作答。 #core #eng
 ```
-/Users/addo/iCloud Drive/Obsidian/atbug/笔记/AI/AI 黑话词典：LLM 时代的术语速查表.md
-```
 
-### 新增或修改一个词条
+格式拆解：
 
-1. 在源 Markdown 对应章节加一行：
+| 部分 | 规则 |
+|---|---|
+| `- **名称**` | 主名称，通常是英文缩写或英文词 |
+| `（英文全称，中文名）` | 括号内可只写中文名、只写英文全称，或两者用中文逗号分隔；也可完全省略 |
+| ` — 定义` | 全角破折号 + 空格分隔；定义支持 `**加粗**` 和 `` `代码` `` |
+| ` #core #eng` | 行尾标签，可写多个、可省略；**必须来自 `data/taxonomy.json`** |
 
-   ```markdown
-   - **Term（English Full Name，中文名）** — 一句话定义，可用 **加粗** 强调。
-   ```
+不需要写 id——锚点由名称自动生成（中文名会附加短哈希避免冲突）。不需要写分类——由所在的 `## ` 章节决定。
 
-2. 重新生成并校验：
+### 分类
 
-   ```bash
-   node scripts/sync.mjs          # 也可传入别的 Markdown 路径
-   node scripts/validate.mjs
-   ```
-
-3. `git commit && git push` —— Pages 几十秒内自动更新，无需任何构建。
-
-源 Markdown 的路径如果变了，用参数指定：`node scripts/sync.mjs /path/to/glossary.md`，或改 `scripts/sync.mjs` 里的 `DEFAULT_MD`。
-
-### 手工指定标签
-
-自动打标签基于关键词规则，需要精确控制时编辑 `data/tag-overrides.json`：
+章节标题格式固定为 `## 一、模型与架构`，其中中文序号和名称都登记在 `data/taxonomy.json`：
 
 ```json
-{
-  "RAG": ["core", "eng"],
-  "AGI": ["debate", "hype"]
-}
+{ "id": "rag", "section": "五", "name": "检索与知识", "en": "Retrieval & RAG", "desc": "让回答绑定到外部事实" }
 ```
 
-key 必须等于词条的 `term` 字段（**不含括号里的中文名**）。`sync.mjs` 每次都会重新读取这个文件，覆盖规则的结果不会被冲掉。`validate.mjs` 会检查 key 是否对应真实词条、标签是否在受控词表内。
+改章节名称必须同时改 `taxonomy.json`，否则 `sync.mjs` 会报错——这是有意的防呆，防止分类名和 id 悄悄脱节。新增分类也是改这一个文件，站点侧栏、颜色、分组会自动跟上。
 
-### 本地预览
+### 标签
 
-```bash
-python3 -m http.server 8080
-# 打开 http://localhost:8080
-```
-
-直接双击 `index.html` 也能看（`file://` 下同样可用）。
-
-## 分类与标签（受控词表）
-
-分类是**纵向的知识层级**，一个词条只属于一个分类；标签是**横向的观察维度**，可取多个。两者都由 `scripts/sync.mjs` 里的常量定义，`validate.mjs` 强制校验，避免标签泛滥。
-
-### 12 个分类
-
-| id | 名称 | 覆盖范围 |
-|---|---|---|
-| `architecture` | 模型与架构 | 参数、注意力、位置编码、稀疏结构 |
-| `training` | 训练与对齐 | 预训练、微调、偏好优化、数据 |
-| `reasoning` | 推理与生成 | 思维链、测试时计算、采样策略 |
-| `prompting` | 提示与上下文 | 决定什么信息进入上下文窗口 |
-| `rag` | 检索与知识 | 让回答绑定到外部事实 |
-| `agent` | Agent 与工具 | 规划、调用、迭代、协议 |
-| `evaluation` | 评测与基准 | 榜单、指标、污染与饱和 |
-| `serving` | 部署与推理工程 | 吞吐、延迟、显存、成本 |
-| `multimodal` | 多模态与生成 | 图像、语音、视频、世界模型 |
-| `safety` | 安全与伦理 | 攻击面、对齐、可解释性 |
-| `ecosystem` | 生态与产品 | 框架、平台、工程组织 |
-| `business` | 行业叙事 | 营销词、造词、行业黑话 |
-
-### 8 个标签
+8 个标签登记在 `data/taxonomy.json` 的 `tags` 数组：
 
 | id | 名称 | 用途 |
 |---|---|---|
@@ -115,27 +94,60 @@ python3 -m http.server 8080
 | `debate` | 有争议 | 定义或有效性存在争论 |
 | `sec` | 安全 | 涉及攻击面、风险或对齐 |
 
-要新增分类或标签，请同时修改 `scripts/sync.mjs` 里的常量，并在本表登记——CI 会阻止使用未登记的词表项。
+写 `#unknown` 会直接编译报错；想新增标签，先在 `taxonomy.json` 登记并补上说明。
 
-## 数据字段
+### 其它区块
 
-`data/glossary.js` 中的 `terms[]`：
+源文件里还有几段会被一起编译进站点：
 
-| 字段 | 说明 |
-|---|---|
-| `id` | URL 安全的唯一标识，由 `term` 生成，中文名会附加短哈希；用作深链接锚点 |
-| `term` | 主名称，通常是英文缩写或英文词 |
-| `en` | 英文全称 |
-| `zh` | 中文名 |
-| `cat` | 分类 id |
-| `tags` | 标签 id 数组 |
-| `def` | 一句话定义，支持 `**加粗**` 与 `` `代码` `` |
+- `## 〇、先分清那个「推理」` → 首屏的辨析提示卡
+- `## 附：最容易混淆的十组` → 底部对照表（Markdown 表格）
+- `## 附二：同类开源项目与权威来源` → 底部链接分组（`- [名称](URL)` + `**分组名**`）
+- `## 一条使用建议` → 「关于」区的提示卡
+- frontmatter 之后的开头段落 → 首屏导语
+- `<!-- ... -->` 注释会被跳过，可以放心写维护说明
 
-另有 `meta` / `categories` / `tags` / `lead` / `confusions` / `links` 六个顶层字段，均由 Markdown 同步生成。
+frontmatter 目前有三个字段：
+
+```yaml
+---
+title: "AI 黑话词典：LLM 时代的术语速查表"
+updated: 2026-11-07
+license: CC BY 4.0
+---
+```
+
+`updated` 会显示在页脚，改动内容时顺手改一下。
+
+## 怎么更新
+
+```bash
+# 改 content/glossary.md（或 data/taxonomy.json）
+npm run check        # 编译 + 校验，等价于 sync && validate
+git commit -am "词条：新增 XXX"
+git push             # Pages 几十秒内自动更新
+```
+
+写作时想实时预览：
+
+```bash
+npm run watch        # 另一个终端
+npm run serve        # 打开 http://localhost:8080
+```
+
+`watch` 监听源文件和词表，保存即自动编译并校验；刷新浏览器就能看到结果。直接双击 `index.html` 也能离线浏览。
+
+> `content/glossary.md` 是普通 Markdown，用任意编辑器打开即可；也可以把 `content/` 软链进你常用的笔记库里写。站点只认仓库里的这个文件，不读取任何外部路径。
 
 ## 校验规则
 
-`node scripts/validate.mjs` 检查：meta 完整性、词条数与 meta.count 一致、分类与标签 id 合法且唯一、每条词条的 `cat` / `tags` 都在受控词表内、id 唯一、`def` 不含"见第 X 节"这类源笔记交叉引用或对话残留、不含不安全内容、`tag-overrides.json` 的 key 与标签合法、参考链接只允许 http/https。
+`npm run validate` 会检查：
+
+1. **`content/glossary.md` 与 `data/glossary.js` 是否同步** —— 改了源忘记编译会被 CI 拦下（用 `sync.mjs --check` 实现，不改动文件）。
+2. frontmatter 的 `updated` 合法且与生成数据一致。
+3. `taxonomy.json` 里分类 id、章节序号、标签 id 合法且唯一；源文件里每个登记过的章节标题都存在且写法一致。
+4. 每条词条的 id 唯一、名称不重复、必填字段齐全、`cat` 与 `tags` 都在受控词表内、定义末尾没有残留的 `#标签`、不含交叉引用占位或对话残留、不含不安全内容。
+5. 辨析、参考链接、导语、提示卡区块都非空；链接只允许 http/https。
 
 ## GitHub Pages 配置
 
@@ -144,13 +156,13 @@ python3 -m http.server 8080
 - **Source**: Deploy from a branch
 - **Branch**: `main` / `/ (root)`
 
-不需要 Actions 构建，不需要 Jekyll（`_config.yml` 未使用，也没有 `.nojekyll` 的必要，因为所有文件名都不以下划线开头）。
+不需要 Actions 构建，不需要 Jekyll。仓库所在账号的用户站点绑定了 `atbug.com`，因此项目页的规范地址是 `https://atbug.com/ai-glossary/`；`addozhang.github.io/ai-glossary/` 会重定向过去。
 
 ## 内容与协议
 
-- 全部词条由作者整理并原创撰写，源自 Obsidian 笔记库中的《AI 黑话词典》。
-- 参考项目**仅列出链接与一句评价，未复制其正文**。特别地，`mattpocock/dictionary-of-ai-coding` 未附带 LICENSE，法律上默认保留所有权利，本站不引用其内容文本。
-- 正文（词条、定义、辨析）：[CC BY 4.0](LICENSE)，转载请署名「张晓辉 (Addo) / atbug.com」。
+- 词条与正文全部原创，内容源文件是 `content/glossary.md`。
+- 参考项目**仅列出链接与一句评价，未复制其正文**。特别是 `mattpocock/dictionary-of-ai-coding` 未附带 LICENSE，法律上默认保留所有权利，本站不引用其内容文本。
+- 内容（词条、定义、辨析、词表）：[CC BY 4.0](LICENSE)，转载请署名「张晓辉 (Addo) / atbug.com」。
 - 站点代码（HTML / CSS / JS / 脚本）：[MIT](LICENSE-CODE)。
 
 站内不设评论区、不收集任何数据、不加载任何外部资源。

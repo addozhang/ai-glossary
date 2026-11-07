@@ -1,12 +1,13 @@
 {
   "name": "ai-glossary",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "private": true,
-  "description": "AI 黑话词典 — LLM 时代的术语速查表（静态站点）",
+  "description": "AI 黑话词典 — LLM 时代的术语速查表（静态站点，仓库自包含内容源）",
   "scripts": {
     "sync": "node scripts/sync.mjs",
     "validate": "node scripts/validate.mjs",
     "check": "node scripts/sync.mjs && node scripts/validate.mjs",
+    "watch": "node scripts/watch.mjs",
     "serve": "python3 -m http.server 8080"
   },
   "license": "SEE LICENSE IN LICENSE"
