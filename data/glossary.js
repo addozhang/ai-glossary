@@ -6,7 +6,7 @@
 const GLOSSARY = {
   "meta": {
     "title": "AI 黑话词典",
-    "description": "两百余条 AI 与 LLM 术语，按十二个知识层级归类。可按分类与标签筛选，也可按「易混淆」「新词」「成本」这类横向维度找。",
+    "description": "两百余条 AI 与 LLM 术语，按十二个知识层级归类，支持全文检索与多维筛选。",
     "source": "https://github.com/addozhang/ai-glossary",
     "license": "CC BY 4.0",
     "updated": "2026-11-07",
