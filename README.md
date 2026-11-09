@@ -205,6 +205,22 @@ git push          # Pages 几十秒内自动更新
 
 仓库所在账号的用户站点绑定了 `atbug.com`，因此项目页的规范地址是 `https://atbug.com/ai-glossary/`；`addozhang.github.io/ai-glossary/` 会重定向过去。
 
+**必须开启 Enforce HTTPS**，两个仓库都要开：
+
+| 仓库 | 为什么 |
+|---|---|
+| `addozhang/ai-glossary`（本项目） | 让项目页自身走 https |
+| `addozhang/addozhang.github.io`（用户站点） | 自定义域 `atbug.com` 的 http→https 强制由它控制，不开的话 `http://atbug.com/ai-glossary/` 会直接返回 200 |
+
+不开第二个的后果是真实踩过的坑：项目页重定向到自定义域时用的是 `http://`，Chrome 会容忍这种降级并继续加载，但 Firefox 默认开启 HTTPS-Only，会把「HTTPS 页面重定向到 HTTP」判为不安全连接。表现就是**同一个链接 Chrome 能开、手机 Firefox 打不开**。
+
+命令行开启（等价于 Settings → Pages → Enforce HTTPS）：
+
+```bash
+printf '{"https_enforced":true}' | gh api repos/addozhang/ai-glossary/pages -X PUT --input -
+printf '{"https_enforced":true}' | gh api repos/addozhang/addozhang.github.io/pages -X PUT --input -
+```
+
 ## 内容与协议
 
 - 词条与正文全部原创，内容源是 `content/terms/` 与 `data/`。
